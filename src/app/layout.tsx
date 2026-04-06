@@ -1,5 +1,7 @@
 import { Titillium_Web } from 'next/font/google';
 import './globals.css';
+import Navbar from './components/shared/header-nav';
+import Footer from './components/shared/footer';
 
 const titillium = Titillium_Web({
   subsets: ['latin'],
@@ -35,8 +37,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${titillium.variable} font-sans antialiased`}>
+      <body className={`${titillium.variable} font-sans antialiased`}
+        style={{
+          background: 'linear-gradient(135deg, #f0fdfc 0%, #e6fafa 40%, #ccf5f4 70%, #b8f0ef 100%)',
+        }}>
+        <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   );
