@@ -29,7 +29,7 @@ const Partnership = () => {
               className="group relative overflow-hidden rounded-3xl border-4 border-[#29d9d5] transition-transform duration-300 hover:-translate-y-2"
             >
               {/* Image Container */}
-              <div className="relative h-[350px] w-full">
+              <div className="relative h-full md:h-[350px] w-full">
                 <Image
                   src={card.image}
                   alt={card.title}
@@ -39,7 +39,7 @@ const Partnership = () => {
                 />
                 
                 {/* Overlay Content */}
-                <div className="absolute inset-0 flex flex-col justify-end p-10 space-y-4">
+                <div className="absolute inset-0 flex flex-col justify-end p-10 md:space-y-4">
                   <h3 className="text-4xl font-black text-white leading-tight">
                     {card.title}
                   </h3>
