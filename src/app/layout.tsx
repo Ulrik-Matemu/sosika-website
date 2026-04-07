@@ -11,7 +11,7 @@ const titillium = Titillium_Web({
 
 export const metadata = {
   title: 'Sosika Delivery Co.',
-  description: 'The ultimate food delivery experience in Tanzania. Official Website Launching soon!',
+  description: 'The Number 1 and ultimate food delivery experience in Tanzania. Official Website Launching soon!',
   openGraph: {
     title: 'Sosika Delivery Co.',
     description: 'Food delivery, refined.',

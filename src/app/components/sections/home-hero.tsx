@@ -1,15 +1,14 @@
-'use client'
-import React from 'react';
-import { motion } from 'framer-motion';
+
 import Image from 'next/image';
+// Import your wrappers instead of framer-motion directly
+import { MotionDiv, MotionSpan, MotionButton } from '@/app/components/shared/motion-wrapper';
 
 const Hero = () => {
     return (
-        <section
-            className="relative w-full min-h-screen overflow-hidden flex items-center justify-center"
-        >
-            {/* ── Background blobs ── */}
-            <motion.div
+        <section className="relative w-full min-h-screen overflow-hidden flex items-center justify-center">
+
+            {/* Background blobs using the wrapper */}
+            <MotionDiv
                 aria-hidden="true"
                 className="absolute top-[-80px] right-[-80px] rounded-full pointer-events-none"
                 style={{
@@ -17,92 +16,52 @@ const Hero = () => {
                     height: 480,
                     background: 'radial-gradient(circle, rgba(41,217,213,0.18) 0%, transparent 70%)',
                 }}
-                animate={{
-                    y: [0, -10, 0],
-                    scale: [1, 1.03, 1],
-                }}
-                transition={{
-                    duration: 8,
-                    repeat: Infinity,
-                    ease: 'easeInOut',
-                }}
-            />
-            <motion.div
-                aria-hidden="true"
-                className="absolute bottom-[-60px] rounded-full pointer-events-none"
-                style={{
-                    width: 360,
-                    height: 360,
-                    background: 'radial-gradient(circle, rgba(41,217,213,0.12) 0%, transparent 70%)',
-                }}
-                animate={{
-                    y: [0, 8, 0],
-                    x: [0, 6, 0],
-                }}
-                transition={{
-                    duration: 10,
-                    repeat: Infinity,
-                    ease: 'easeInOut',
-                }}
+                animate={{ y: [0, -10, 0], scale: [1, 1.03, 1] }}
+                transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
             />
 
             <div className="relative z-10 min-w-9xl mx-auto px-6 md:px-24 w-full">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center py-20 lg:py-0 min-h-screen justify-center">
-                    {/* ── LEFT: Copy + CTA ── */}
-                    <motion.div
+
+                    {/* LEFT: Copy */}
+                    <MotionDiv
                         className="flex flex-col justify-center"
                         initial={{ opacity: 0, y: 28 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.7, ease: 'easeOut' }}
                     >
-                        <motion.h1
-                            className="font-black leading-[1.08] mb-6 text-[#1a1a1a] text-5xl sm:text-5xl lg:text-7xl text-center md:text-left"
-                            initial={{ opacity: 0, y: 18 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.7, delay: 0.1, ease: 'easeOut' }}
-                        >
+                        <h1 className="font-black leading-[1.08] mb-6 text-[#1a1a1a] text-5xl sm:text-5xl lg:text-7xl text-center md:text-left">
                             The #1 Food Delivery Service <br />
-                            <motion.span
+                            <MotionSpan
                                 style={{ color: '#29d9d5', display: 'inline-block' }}
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.6, delay: 0.2 }}
                             >
                                 In Tanzania<span className='text-[#1a1a1a]'>.</span>
-                            </motion.span>
-                        </motion.h1>
+                            </MotionSpan>
+                        </h1>
 
-                        <motion.p
-                            className="mb-10 text-center md:text-left leading-relaxed max-w-sm"
-                            style={{ color: '#666' }}
+                        <MotionButton
+                            className="bg-[#29d9d5] text-white uppercase w-full md:w-1/2 px-8 py-3 rounded-xl font-bold text-sm shadow-lg shadow-cyan-500/30"
                             initial={{ opacity: 0, y: 18 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
-                        >
-                            Order from top-rated local restaurants and get hot, fresh food delivered to your door in minutes.
-                        </motion.p>
-
-                        <motion.button
-                            className="bg-[#29d9d5] hover:bg-white hover:text-[#1a1c20] transition-colors duration-200 text-white uppercase w-full md:w-1/2 px-8 py-3 rounded-xl font-bold text-sm transition-all shadow-lg shadow-cyan-500/30"
-                            initial={{ opacity: 0, y: 18 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.7, delay: 0.3, ease: 'easeOut' }}
                             whileHover={{ y: -2, scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
                         >
                             Order Now
-                        </motion.button>
-                    </motion.div>
+                        </MotionButton>
+                    </MotionDiv>
 
+                    {/* RIGHT: Illustration */}
                     {/* ── RIGHT: Illustration ── */}
-                    <motion.div
+                    <MotionDiv
                         className="relative md:right-[-50px] flex items-center justify-center"
                         initial={{ opacity: 0, y: 28 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.15, ease: 'easeOut' }}
                     >
                         {/* Soft outer highlight blob */}
-                        <motion.div
+                        <MotionDiv
                             className="absolute inset-0 m-auto"
                             style={{
                                 width: '82%',
@@ -125,7 +84,7 @@ const Hero = () => {
                         />
 
                         {/* Main brand blob */}
-                        <motion.div
+                        <MotionDiv
                             className="absolute inset-0 m-auto"
                             style={{
                                 width: '78%',
@@ -147,7 +106,7 @@ const Hero = () => {
                         />
 
                         {/* Rider image */}
-                        <motion.div
+                        <MotionDiv
                             className="relative z-10 w-full"
                             style={{ maxWidth: 420, aspectRatio: '3/4' }}
                             animate={{ y: [0, -8, 0] }}
@@ -165,8 +124,8 @@ const Hero = () => {
                                 className="object-cover drop-shadow-[0_18px_35px_rgba(0,0,0,0.12)]"
                                 priority
                             />
-                        </motion.div>
-                    </motion.div>
+                        </MotionDiv>
+                    </MotionDiv>
                 </div>
             </div>
         </section>
