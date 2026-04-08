@@ -24,7 +24,7 @@ const reasons = [
 
 const WhySosikaWorksBetter = () => {
     return (
-        <section className="relative overflow-hidden bg-white md:px-16 md:py-24">
+        <section className="relative overflow-hidden bg-white py-10 md:px-16 md:py-24">
             <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,_rgba(14,165,233,0.10),_transparent_35%)]" />
 
             <div className="mx-auto max-w-7xl px-6 lg:px-8">

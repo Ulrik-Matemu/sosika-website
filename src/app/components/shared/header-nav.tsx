@@ -4,11 +4,11 @@ import { ChevronRight } from 'lucide-react';
 
 const Navbar = () => {
   const navLinks = [
-    { name: 'Home', href: '/', hasArrow: false, active: true },
-    { name: 'Services', href: '/service', hasArrow: false },
-    { name: 'Contacts', href: '/contacts', hasArrow: false },
-    { name: 'About Us', href: '/pages', hasArrow: false },
-    { name: 'Our Partners', href: '/multipage', hasArrow: false },
+    { name: 'Home', href: '/', hasArrow: false, active: false },
+    { name: 'About Us', href: '/about-us', hasArrow: false },
+    { name: 'Our Services', href: '/our-service', hasArrow: false },
+    { name: 'Our Partners', href: '/our-partners', hasArrow: false },
+    { name: 'Contacts', href: '/contact-us', hasArrow: false },
   ];
 
   return (
@@ -40,7 +40,7 @@ const Navbar = () => {
       {/* CTA Button */}
       <div>
         <Link
-          href="/menu"
+          href="https://sosika.app"
           className="bg-[#29d9d5] hover:bg-white hover:text-[#1a1c20] transition-colors duration-200 text-white uppercase px-8 py-3 rounded-xl font-bold text-sm transition-all shadow-lg shadow-cyan-500/30 active:scale-95"
         >
           Open App

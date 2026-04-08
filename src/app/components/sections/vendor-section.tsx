@@ -18,7 +18,7 @@ export default function FeaturedVendorsSection({
   if (!vendors.length) return null;
 
   return (
-    <section className="bg-slate-200 md:py-20 md:px-16">
+    <section className="bg-slate-200 py-10 md:py-20 md:px-16">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="text-center">
 
@@ -26,13 +26,13 @@ export default function FeaturedVendorsSection({
             <span className="text-[#29d9d5]">Great Food </span>from Vendors Customers Love!
           </h2>
 
-          <p className="mt-4 text-base leading-7 text-slate-600">
+          <p className="mt-4 text-base text-lg leading-7 text-slate-600">
             Explore some of the trusted vendors on Sosika. Fast delivery,
             quality meals, and a better experience from order to doorstep.
           </p>
         </div>
 
-        <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+        <div className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {vendors.map((vendor) => (
             <Link
               key={vendor.id}
@@ -60,9 +60,6 @@ export default function FeaturedVendorsSection({
                     <h3 className="text-lg font-semibold text-slate-900">
                       {vendor.name}
                     </h3>
-                    <p className="mt-1 text-sm text-slate-500">
-                      {vendor.ownerName || "Vendor partner"}
-                    </p>
                   </div>
 
                   <div className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-slate-100 text-slate-700">
@@ -70,7 +67,7 @@ export default function FeaturedVendorsSection({
                   </div>
                 </div>
 
-                <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-slate-600">
+                <div className="flex flex-wrap items-center gap-4 text-sm text-slate-600">
                   <span className="inline-flex items-center gap-1.5">
                     <Star className="h-4 w-4" />
                     {formatRating(vendor.averageRating)}

@@ -6,14 +6,14 @@ import { getFeaturedVendors } from "@/lib/vendors";
 import FeaturedVendorsSection from './components/sections/vendor-section';
 
 export default async function Home() {
-  const vendors = await getFeaturedVendors(3);
+ const vendors = await getFeaturedVendors(3);
 
   return (
     <main className="min-h-screen">
      <Hero />
      <HowItWorks />
      <WhySosikaWorksBetter />
-     <FeaturedVendorsSection vendors={vendors} />
+     <FeaturedVendorsSection vendors={vendors} /> 
      <Partnership />
     </main>
   );

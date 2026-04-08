@@ -90,11 +90,9 @@ const Footer = () => {
             {/* Social icons */}
             <div className="flex flex-wrap gap-2 pt-1">
               {[
-                { url: 'https://twitter.com', network: 'twitter' },
-                { url: 'https://facebook.com', network: 'facebook' },
-                { url: 'https://instagram.com', network: 'instagram' },
-                { url: 'https://youtube.com', network: 'youtube' },
-                { url: 'https://tiktok.com', network: 'tiktok' },
+                { url: 'https://instagram.com/sosika.app', network: 'instagram' },
+                { url: 'https://youtube.com', network: 'whatsapp' },
+                { url: 'mail:sosika.app@gmail.com', network: 'email' },
               ].map(({ url, network }) => (
                 <SocialIcon
                   key={network}
@@ -115,10 +113,10 @@ const Footer = () => {
               Explore
             </h3>
             <ul className="space-y-4">
-              {['Home', 'Blog', 'Products', 'Clients', 'Contact Us'].map((link) => (
-                <li key={link}>
+              {[{name: 'Home', href: '/'}, {name: 'Our Services', href: '/our-services'}, {name: 'About Us', href: '/about-us'}, {name: 'Blog', href: '/blog'}].map((link) => (
+                <li key={link.name}>
                   <Link
-                    href="#"
+                    href={link.href}
                     className="group flex items-center gap-2 text-sm transition-colors duration-200"
                     style={{ color: 'rgba(255,255,255,0.6)' }}
                   >
@@ -127,7 +125,7 @@ const Footer = () => {
                       className="transition-transform duration-200 group-hover:translate-x-1"
                       style={{ color: '#29d9d5' }}
                     />
-                    <span className="group-hover:text-white transition-colors duration-200">{link}</span>
+                    <span className="group-hover:text-white transition-colors duration-200">{link.name}</span>
                   </Link>
                 </li>
               ))}
@@ -149,8 +147,8 @@ const Footer = () => {
                 </div>
                 <div className="text-sm">
                   <p className="font-semibold mb-1 text-white">Our Location</p>
-                  <p style={{ color: 'rgba(255,255,255,0.45)' }}>Goldschmidtstraße 13, 04103</p>
-                  <p style={{ color: 'rgba(255,255,255,0.45)' }}>Leipzig, Germany</p>
+                  <p style={{ color: 'rgba(255,255,255,0.45)' }}>Business Startup Center, IAA</p>
+                  <p style={{ color: 'rgba(255,255,255,0.45)' }}>Arusha, Tanzania</p>
                 </div>
               </div>
               <div className="flex gap-3">
@@ -162,8 +160,8 @@ const Footer = () => {
                 </div>
                 <div className="text-sm">
                   <p className="font-semibold mb-1 text-white">Phone</p>
-                  <p style={{ color: 'rgba(255,255,255,0.45)' }}>+49 078 039 2311</p>
-                  <p style={{ color: 'rgba(255,255,255,0.45)' }}>+49 078 028 5560</p>
+                  <p style={{ color: 'rgba(255,255,255,0.45)' }}>+255 760 903 468</p>
+                  <p style={{ color: 'rgba(255,255,255,0.45)' }}>+255 688 123 103</p>
                 </div>
               </div>
             </div>
