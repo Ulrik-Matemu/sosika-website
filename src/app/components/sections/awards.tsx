@@ -1,340 +1,247 @@
-"use client";
+'use client';
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
-import { ArrowUpRight } from "lucide-react";
+import React, { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
 
-type Award = {
-  id: number;
-  title: string;
-  date: string;
-  organization: string;
-  description: string;
-  cta?: string;
-  bgColor: string;
-  textColor?: string;
-};
+const awards = [
 
-const awards: Award[] = [
   {
-    id: 1,
-    title: "Campus Innovation Award",
-    date: "Jan 12, 2026",
-    organization: "Tanzania Student Innovation Forum",
-    description:
-      "Recognized for building a modern food delivery experience that improves convenience, speed, and accessibility for campus communities.",
-    cta: "View Award",
-    bgColor: "#29d9d5",
-    textColor: "#041414",
+    eyebrow: 'Community Impact',
+    title: 'Silver Prize',
+    org: 'S.M.A.R.T Competition',
+    year: '2025',
+    bg: 'bg-[#29d9d5]',
+    text: 'text-[#0e0e0e]',
+    badgeStyle: 'bg-black/10 text-[#0e0e0e]',
+    yearOpacity: 'text-black/10',
+    link: '/smart-competition-2025',
   },
   {
-    id: 2,
-    title: "Best Student Startup",
-    date: "Dec 02, 2025",
-    organization: "East Africa Startup Showcase",
-    description:
-      "Awarded for product vision, market relevance, and execution in solving everyday delivery challenges for students and local vendors.",
-    cta: "Explore",
-    bgColor: "#111111",
-    textColor: "#ffffff",
-  },
-  {
-    id: 3,
-    title: "Top Delivery Experience",
-    date: "Oct 18, 2025",
-    organization: "Digital Product Excellence",
-    description:
-      "Honored for designing a smoother ordering journey with a strong focus on speed, trust, and user experience.",
-    cta: "Read More",
-    bgColor: "#1a1a1a",
-    textColor: "#ffffff",
-  },
-  {
-    id: 4,
-    title: "Vendor Impact Recognition",
-    date: "Aug 09, 2025",
-    organization: "Local Commerce Growth Awards",
-    description:
-      "Recognized for creating meaningful digital visibility and growth opportunities for food vendors through technology.",
-    cta: "See Details",
-    bgColor: "#0b0f19",
-    textColor: "#ffffff",
+    eyebrow: 'Industry Leader',
+    title: '3rd Place Winner',
+    org: 'Affroinnovate Challenge Tanzania',
+    year: '2025',
+    bg: 'bg-[#0e0e0e]',
+    text: 'text-white',
+    badgeStyle: 'bg-[#29d9d5]/15 text-[#29d9d5]',
+    yearOpacity: 'text-white/10',
+    link: '/affroinnovative-youth-awards-2025',
   },
 ];
 
-// Scroll timeline constants.
-// Each card gets an ENTER phase + a DWELL phase.
-// enterFraction = what portion of the total scroll budget the entrance takes.
-// dwellFraction = how long the card sits fully visible before the next enters.
-const ENTER_FRACTION = 0.12; // entrance animation takes 12% of total scroll
-const DWELL_FRACTION = 0.13; // dwell (fully visible, no movement) takes 13%
-const SLOT = ENTER_FRACTION + DWELL_FRACTION; // 25% of scroll per card
+const panels = [
+  {
+    num: '01 / 04',
+    heading: 'Redefining fast, reliable delivery in Tanzania',
+    body: 'Sosika’s innovative approach to food delivery earned us the Silver Prize at the S.M.A.R.T Competition, showcasing our commitment to transforming the delivery landscape.',
+    tag: 'S.M.A.R.T Competition · 2025',
+  },
+  {
+    num: '02 / 04',
+    heading: 'Empowering local businesses through technology',
+    body: "Our dedication to supporting local vendors and fostering economic growth was recognized with 3rd Place at the Affroinnovative Youth Awards, highlighting our impact on the community.",
+    tag: 'Affroinnovate Challenge Tanzania · 2025',
+  },
+];
 
-// Build per-card start times (back card enters first).
-// Card index 0 = front (enters last), card (total-1) = back (enters first).
-function getSegments(index: number, total: number) {
-  // back card = total-1, enters at scroll 0
-  // front card = 0, enters last
-  const slotIndex = total - 1 - index;
-  const enterStart = slotIndex * SLOT;
-  const enterEnd = enterStart + ENTER_FRACTION;
-  return { enterStart, enterEnd };
-}
+export default function AwardsSection() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const panelRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-// Each card scrolls in one at a time.
-// Card index 0 = frontmost (last to animate in, sits on top).
-// We reverse so card 0 is rendered last (highest z-index wins).
-function AwardCard({
-  award,
-  index,
-  total,
-  progress,
-}: {
-  award: Award;
-  index: number;
-  total: number;
-  progress: any;
-}) {
-  const { enterStart, enterEnd } = getSegments(index, total);
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const idx = Number((entry.target as HTMLElement).dataset.panel);
+            setActiveIndex(idx);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
 
-  // Slide up from below into stacked position — only during enter window
-  const y = useTransform(progress, [enterStart, enterEnd], ["65%", "0%"]);
-  const opacity = useTransform(progress, [enterStart, enterEnd], [0, 1]);
+    panelRefs.current.forEach((el) => el && observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
 
-  // Stack peek: cards behind the front are offset upward and scaled down.
-  // index 0 = front (no offset), index 1 = one behind (offset up a bit), etc.
-  const peekOffsetY = -index * 22; // each card peeks 22px above the one in front
-  const peekScale = 1 - index * 0.035; // subtle scale-down for depth
+  const getCardStyle = (cardIndex: number): React.CSSProperties => {
+    const rel = cardIndex - activeIndex;
+
+    if (rel < 0) {
+      return {
+        transform: `translateY(${rel * 110}%) scale(0.92)`,
+        opacity: 0,
+        zIndex: cardIndex,
+        transition: 'transform 0.55s cubic-bezier(0.4,0,0.2,1), opacity 0.4s ease',
+        willChange: 'transform, opacity',
+      };
+    }
+    if (rel === 0) {
+      return {
+        transform: 'translateY(0) scale(1)',
+        opacity: 1,
+        zIndex: 20,
+        transition: 'transform 0.55s cubic-bezier(0.4,0,0.2,1), opacity 0.4s ease',
+        willChange: 'transform, opacity',
+      };
+    }
+    return {
+      transform: `translateY(${rel * 14}px) scale(${1 - rel * 0.04})`,
+      opacity: 1,
+      zIndex: 20 - rel,
+      transition: 'transform 0.55s cubic-bezier(0.4,0,0.2,1), opacity 0.4s ease',
+      willChange: 'transform, opacity',
+    };
+  };
 
   return (
-    <motion.div
-      style={{
-        y,
-        opacity,
-        // Stack order: front card (index 0) on top
-        zIndex: total - index,
-        position: "absolute",
-        width: "100%",
-        // Apply the permanent peek offset so cards sit stacked
-        transform: `translateY(${peekOffsetY}px) scale(${peekScale})`,
-      }}
-    >
-      <div
-        style={{
-          backgroundColor: award.bgColor,
-          color: award.textColor || "#ffffff",
-          borderRadius: "2rem",
-          border: "1px solid rgba(255,255,255,0.08)",
-          boxShadow: "0 24px 64px rgba(0,0,0,0.5)",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
-            minHeight: "480px",
-            padding: "2.5rem",
-          }}
-        >
-          {/* Logo mark */}
-          <div style={{ fontSize: "1.6rem", fontWeight: 900, lineHeight: 1 }}>
-            W.
-          </div>
-
-          {/* Main content */}
-          <div style={{ marginTop: "2.5rem" }}>
-            <p
-              style={{
-                fontSize: "clamp(1.8rem, 4vw, 3rem)",
-                fontWeight: 600,
-                lineHeight: 1.02,
-                letterSpacing: "-0.04em",
-                margin: 0,
-              }}
-            >
-              {award.title}
-            </p>
-
-            <p
-              style={{
-                marginTop: "0.75rem",
-                fontSize: "1.05rem",
-                fontWeight: 500,
-                opacity: 0.75,
-              }}
-            >
-              {award.date}
-            </p>
-
-            <p
-              style={{
-                marginTop: "1.25rem",
-                fontSize: "clamp(1.8rem, 4vw, 3rem)",
-                fontWeight: 700,
-                lineHeight: 1.03,
-                letterSpacing: "-0.04em",
-                margin: "1.25rem 0 0",
-              }}
-            >
-              {award.organization}
-            </p>
-          </div>
-
-          {/* Footer */}
-          <div style={{ marginTop: "2.5rem" }}>
-            <p
-              style={{
-                fontSize: "0.95rem",
-                lineHeight: 1.75,
-                opacity: 0.8,
-                maxWidth: "32rem",
-              }}
-            >
-              {award.description}
-            </p>
-
-            <button
-              type="button"
-              style={{
-                marginTop: "2rem",
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.5rem",
-                backgroundColor: "#ffffff",
-                color: "#000000",
-                borderRadius: "9999px",
-                padding: "0.75rem 1.5rem",
-                fontSize: "0.9rem",
-                fontWeight: 600,
-                border: "none",
-                cursor: "pointer",
-                transition: "transform 0.2s ease",
-              }}
-              onMouseEnter={(e) =>
-                ((e.target as HTMLElement).style.transform = "scale(1.04)")
-              }
-              onMouseLeave={(e) =>
-                ((e.target as HTMLElement).style.transform = "scale(1)")
-              }
-            >
-              {award.cta || "View"}
-              <ArrowUpRight style={{ width: "1rem", height: "1rem" }} />
-            </button>
-          </div>
-        </div>
+    <section className="bg-[#f7f6f3]">
+      {/* Section header */}
+      <div className="text-center px-8 pt-24 pb-16">
+        <p className="text-[11px] tracking-[0.2em] uppercase text-[#29d9d5] font-medium mb-4">
+          Internationally Prestigious
+        </p>
+        <h2 className="text-6xl leading-tight tracking-wide font-black text-[#0e0e0e]">
+          Awards &amp; <em className="italic text-[#888]">Honours</em>
+        </h2>
       </div>
-    </motion.div>
-  );
-}
 
-export default function AwardsStackSection() {
-  const sectionRef = useRef<HTMLElement | null>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end end"],
-  });
-
-  return (
-    <section
-      ref={sectionRef}
-      style={{
-        position: "relative",
-        // Give enough scroll room for all cards to animate in
-        // Each card gets ENTER + DWELL, plus one final dwell so the front card
-        // sits fully visible. We map 1.0 scroll progress = N * 100vh sections.
-        height: `${awards.length * 150 + 100}vh`,
-        overflow: "clip",
-        backgroundColor: "#000000",
-        color: "#ffffff",
-      }}
-    >
-      <div style={{ position: "sticky", top: 0, height: "100vh" }}>
-        <div
-          style={{
-            margin: "0 auto",
-            maxWidth: "80rem",
-            height: "100%",
-            display: "grid",
-            gridTemplateColumns: "1fr 1.4fr",
-            gap: "4rem",
-            padding: "2.5rem 4rem",
-            alignItems: "center",
-          }}
-        >
-          {/* Left: Heading */}
-          <div>
-            <div style={{ marginBottom: "1.25rem" }}>
-              <p style={{ fontSize: "1.1rem", color: "rgba(255,255,255,0.85)", margin: 0 }}>
-                World's Most Prestigious
-              </p>
+      {/* ── DESKTOP layout (lg+): sticky card stack + scrolling text panels ── */}
+      <div className="hidden lg:flex">
+        {/* LEFT — sticky card stack */}
+        <div className="w-[52%] sticky top-0 h-screen flex items-center justify-center overflow-hidden">
+          <div className="relative w-[340px] h-[420px]">
+            {awards.map((award, i) => (
+              <Link href={award.link} target="_blank" key={award.title}>
               <div
+                key={award.year}
+                className={`absolute inset-0 rounded-3xl p-10 flex flex-col justify-between ${award.bg} ${award.text}`}
+                style={getCardStyle(i)}
+              >
+                <div>
+                  <span className="text-[11px] tracking-widest uppercase opacity-50 font-medium">
+                    {award.eyebrow}
+                  </span>
+                  <h3 className="text-[28px] leading-snug mt-4 mb-2">
+                    {award.title}
+                  </h3>
+                  <p className="text-sm opacity-55">{award.org}</p>
+                </div>
+                <div className="flex items-end justify-between">
+                  <span className={`text-[11px] tracking-widest uppercase font-medium px-3 py-1.5 rounded-full ${award.badgeStyle}`}>
+                    {award.year}
+                  </span>
+                  <span className={`text-[56px] font-light leading-none tracking-tighter ${award.yearOpacity}`}>
+                    {award.year.slice(2)}
+                  </span>
+                </div>
+              </div>
+              </Link>
+            ))}
+          </div>
+
+          {/* Progress dots */}
+          <div className="absolute right-8 top-1/2 -translate-y-1/2 flex flex-col gap-2.5">
+            {awards.map((_, i) => (
+              <div
+                key={i}
+                className="rounded-full transition-all duration-300"
                 style={{
-                  marginTop: "0.5rem",
-                  height: "4px",
-                  width: "5rem",
-                  borderRadius: "9999px",
-                  backgroundColor: "#ff3b30",
+                  width: 6,
+                  height: 6,
+                  background: i === activeIndex ? '#29d9d5' : '#ccc',
+                  transform: i === activeIndex ? 'scale(1.5)' : 'scale(1)',
                 }}
               />
-            </div>
-
-            <h2
-              style={{
-                fontSize: "clamp(3rem, 6vw, 5.5rem)",
-                fontWeight: 600,
-                lineHeight: 0.95,
-                letterSpacing: "-0.05em",
-                margin: 0,
-              }}
-            >
-              Awards
-              <br />
-              &amp; Honors
-            </h2>
-
-            <p
-              style={{
-                marginTop: "2rem",
-                maxWidth: "22rem",
-                fontSize: "0.95rem",
-                lineHeight: 1.75,
-                color: "rgba(255,255,255,0.55)",
-              }}
-            >
-              A stacked showcase of recognition, milestones, and achievements
-              that highlights Sosika's growth and impact.
-            </p>
-          </div>
-
-          {/* Right: Card stack */}
-          <div
-            style={{
-              position: "relative",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              // Extra top padding to give the peeking cards space above
-              paddingTop: `${(awards.length - 1) * 22}px`,
-            }}
-          >
-            {/* Render back-to-front so front card (index 0) is painted last */}
-            {[...awards].reverse().map((award, reversedIndex) => {
-              const index = awards.length - 1 - reversedIndex;
-              return (
-                <AwardCard
-                  key={award.id}
-                  award={award}
-                  index={index}
-                  total={awards.length}
-                  progress={scrollYProgress}
-                />
-              );
-            })}
+            ))}
           </div>
         </div>
+
+        {/* RIGHT — scrollable text panels */}
+        <div className="w-[48%] pr-16 pl-10">
+          {panels.map((panel, i) => (
+            <div
+              key={i}
+              ref={(el) => { panelRefs.current[i] = el; }}
+              data-panel={i}
+              className="min-h-screen flex flex-col justify-center py-20"
+              style={{
+                opacity: i === activeIndex ? 1 : 0,
+                transform: i === activeIndex ? 'translateY(0)' : 'translateY(20px)',
+                transition: 'opacity 0.6s ease, transform 0.6s ease',
+              }}
+            >
+              <p className="text-[11px] tracking-[0.2em] uppercase text-[#29d9d5] font-medium mb-5">
+                {panel.num}
+              </p>
+              <h3 className="text-[36px] leading-tight text-[#0e0e0e] font-bold mb-5">
+                {panel.heading}
+              </h3>
+              <p className="text-base leading-relaxed text-[#888] font-light max-w-[340px] mb-8">
+                {panel.body}
+              </p>
+              <span className="inline-flex items-center gap-2 text-[12px] tracking-widest uppercase font-medium text-[#0e0e0e] px-4 py-2.5 border border-gray-300 rounded-full w-fit">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#29d9d5] block" />
+                {panel.tag}
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
+
+      {/* ── MOBILE layout (<lg): card + text stacked per award, scrolls naturally ── */}
+      <div className="lg:hidden px-5 pb-16 flex flex-col gap-6">
+        {awards.map((award, i) => (
+          <div key={award.title} className="flex flex-col gap-5">
+            {/* Card */}
+            <div className={`rounded-3xl p-8 flex flex-col justify-between ${award.bg} ${award.text}`}
+              style={{ minHeight: 300 }}>
+              <div>
+                <span className="text-[11px] tracking-widest uppercase opacity-50 font-medium">
+                  {award.eyebrow}
+                </span>
+                <h3 className="text-[24px] leading-snug mt-4 mb-2">
+                  {award.title}
+                </h3>
+                <p className="text-sm opacity-55">{award.org}</p>
+              </div>
+              <div className="flex items-end justify-between mt-8">
+                <span className={`text-[11px] tracking-widest uppercase font-medium px-3 py-1.5 rounded-full ${award.badgeStyle}`}>
+                  {award.year}
+                </span>
+                <span className={`text-[48px] font-light leading-none tracking-tighter ${award.yearOpacity}`}>
+                  {award.year.slice(2)}
+                </span>
+              </div>
+            </div>
+
+            {/* Text panel */}
+            <div className="px-1 pb-4">
+              <p className="text-[11px] tracking-[0.2em] uppercase text-[#29d9d5] font-medium mb-3">
+                {panels[i].num}
+              </p>
+              <h3 className="text-[26px] leading-tight text-[#0e0e0e] mb-3">
+                {panels[i].heading}
+              </h3>
+              <p className="text-[15px] leading-relaxed text-[#888] font-light mb-5">
+                {panels[i].body}
+              </p>
+              <span className="inline-flex items-center gap-2 text-[11px] tracking-widest uppercase font-medium text-[#0e0e0e] px-4 py-2.5 border border-gray-300 rounded-full">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#29d9d5] shrink-0 block" />
+                {panels[i].tag}
+              </span>
+            </div>
+
+            {/* Divider between items except last */}
+            {i < awards.length - 1 && (
+              <div className="h-px bg-gray-200 mx-1" />
+            )}
+          </div>
+        ))}
+      </div>
+
+      <div className="h-20" />
     </section>
   );
 }

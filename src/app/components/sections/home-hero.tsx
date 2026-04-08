@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 const Hero = () => {
     return (
-        <section className="relative w-full min-h-screen overflow-hidden flex items-center justify-center">
+        <section className="relative w-full md:mt-14 min-h-screen overflow-hidden flex items-center justify-center">
 
             {/* Background blobs using the wrapper */}
             <div
@@ -39,7 +39,7 @@ const Hero = () => {
 
                         <Link href="https://sosika.app">
                         <MotionButton
-                            className="bg-[#29d9d5] text-white uppercase w-full md:w-1/2 px-8 py-3 rounded-xl font-bold text-sm shadow-lg shadow-cyan-500/30 hover:bg-white hover:text-[#1a1c20] text-white transition-colors duration-300"
+                            className="bg-black text-white uppercase w-full md:w-1/2 px-8 py-3 rounded-xl font-bold text-sm shadow-lg shadow-cyan-500/30 hover:bg-white hover:text-[#1a1c20] text-white transition-colors duration-300"
                             initial={{ opacity: 0, y: 18 }}
                             animate={{ opacity: 1, y: 0 }}
                             whileHover={{ y: -2, scale: 1.02 }}

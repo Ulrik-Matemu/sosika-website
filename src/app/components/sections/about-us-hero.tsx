@@ -14,7 +14,7 @@ export default function AboutUsHero({
   imageAlt = "Happy customers using Sosika",
 }: AboutUsHeroProps) {
   return (
-    <section className="relative overflow-hidden bg-transparent">
+    <section className="relative overflow-hidden mt-6 md:mt-14 bg-transparent">
       {/* soft background glow */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(128,170,255,0.18),rgba(255,255,255,0)_65%)]" />
@@ -24,7 +24,7 @@ export default function AboutUsHero({
       <div className="relative mx-auto grid min-h-[85vh] max-w-7xl items-center gap-14 px-6 py-16 md:px-10 lg:grid-cols-[1.05fr_1fr] lg:px-16 lg:py-20">
         {/* Left content */}
         <div className="max-w-2xl">
-          <h1 className="text-4xl font-black text-center md:text-left leading-[1.05] tracking-[-0.03em] text-[#2f2f2f] sm:text-5xl lg:text-6xl">
+          <h1 className="text-5xl md:text-4xl font-black text-center md:text-left leading-[1.05] tracking-[-0.03em] text-[#2f2f2f]  lg:text-6xl">
             Nothing to worry about with <span className="text-[#29d9d5]">Sosika</span>
           </h1>
 
