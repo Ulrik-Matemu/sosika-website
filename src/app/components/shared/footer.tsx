@@ -92,7 +92,7 @@ const Footer = () => {
               {[
                 { url: 'https://instagram.com/sosika.app', network: 'instagram' },
                 { url: 'https://youtube.com', network: 'whatsapp' },
-                { url: 'mail:sosika.app@gmail.com', network: 'email' },
+                { url: 'sosika.app@gmail.com', network: 'email' },
               ].map(({ url, network }) => (
                 <SocialIcon
                   key={network}

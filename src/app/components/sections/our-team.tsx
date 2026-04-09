@@ -2,7 +2,7 @@ import Image from "next/image"
 
 export default function OurTeamSection() {
     return (
-        <section className="p-24">
+        <section className="px-8 py-10 md:p-24">
             <div className="text-center">
                 <h2 className="text-5xl font-black tracking-tight text-slate-900 mb-6">
                     Our Team

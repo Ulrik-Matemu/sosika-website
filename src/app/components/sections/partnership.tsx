@@ -4,14 +4,14 @@ import Image from 'next/image';
 const Partnership = () => {
   const cards = [
     {
-      title: 'Join Courier',
+      title: 'Join As Courier',
       image: '/asset-images/sosika-rider-partner.png', // Replace with your image
-      link: '/join-courier',
+      link: '/join-rider',
     },
     {
-      title: 'Join Merchant',
+      title: 'Join As  Merchant',
       image: '/asset-images/sosika-merchant-partner.png', // Replace with your image
-      link: '/join-merchant',
+      link: '/join-vendor',
     },
   ];
 

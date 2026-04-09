@@ -5,6 +5,7 @@ import WhySosikaWorksBetter from './components/sections/why-sosika-work-better';
 import { getFeaturedVendors } from "@/lib/vendors";
 import FeaturedVendorsSection from './components/sections/vendor-section';
 import AwardsSection from './components/sections/awards';
+import { Analytics } from "@vercel/analytics/next"
 
 export default async function Home() {
  const vendors = await getFeaturedVendors(3);
@@ -17,6 +18,7 @@ export default async function Home() {
      <AwardsSection />
      <FeaturedVendorsSection vendors={vendors} /> 
      <Partnership />
+     <Analytics />
     </main>
   );
 }

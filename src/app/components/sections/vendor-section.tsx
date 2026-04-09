@@ -86,7 +86,7 @@ export default function FeaturedVendorsSection({
 
         <div className="mt-10 flex justify-center">
           <Link
-            href="/vendors"
+            href="https://sosika.app/"
             className="inline-flex items-center uppercase rounded-xl px-8 py-3 text-lg font-semibold bg-black hover:bg-white hover:text-[#1a1c20] text-white transition-colors duration-300"
           >
             View all vendors
