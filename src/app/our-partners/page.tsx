@@ -2,6 +2,7 @@
 
 import React, { useState, useRef } from 'react';
 import Link from 'next/link';
+import posthog, { trackEvent } from '@/lib/posthog';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -344,7 +345,10 @@ function TestimonialsSlider() {
       {/* Arrow buttons */}
       <div className="hidden md:flex items-center gap-2 absolute -top-16 right-0">
         <button
-          onClick={() => scrollBy(-1)}
+          onClick={() => {
+            scrollBy(-1);
+            trackEvent('testimonial_nav_clicked')
+          }}
           aria-label="Previous testimonial"
           className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:border-[#29d9d5] hover:text-[#29d9d5] transition-colors duration-200"
         >
@@ -353,7 +357,10 @@ function TestimonialsSlider() {
           </svg>
         </button>
         <button
-          onClick={() => scrollBy(1)}
+          onClick={() => {
+            scrollBy(1);
+            trackEvent('testimonial_nav_clicked');
+          }}
           aria-label="Next testimonial"
           className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:border-[#29d9d5] hover:text-[#29d9d5] transition-colors duration-200"
         >
@@ -433,6 +440,8 @@ function OtherPartnershipForm() {
     message: '',
   });
   const [submitted, setSubmitted] = useState(false);
+  const [hasTrackedStart, setHasTrackedStart] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -440,11 +449,47 @@ function OtherPartnershipForm() {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+
+    // Basic validation
     if (!form.name || !form.email || !form.message) return;
-    setSubmitted(true);
+
+    trackEvent("other_partnership_form_submitted", {
+      form_name: 'other_partnership_form'
+    });
+
+    setIsSubmitting(true);
+    try {
+      const response = await fetch('/api/other-partnership-applications', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+        trackEvent("other_partnership_form_submission_success", {
+          form_name: 'other_partnership_form'
+        });
+      } else {
+        throw new Error('Failed to submit');
+      }
+    } catch (err) {
+      alert("We couldn't send your message. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
+  const trackStart = () => {
+    if (!hasTrackedStart) {
+      posthog.capture("other_partnership_form_started", {
+        form_name: 'other_partnership_form'
+      });
+      setHasTrackedStart(true);
+    }
+  }
 
   if (submitted) {
     return (
@@ -477,6 +522,7 @@ function OtherPartnershipForm() {
           </label>
           <input
             name="name"
+            onFocus={trackStart}
             value={form.name}
             onChange={handleChange}
             placeholder="Your name"
@@ -543,9 +589,10 @@ function OtherPartnershipForm() {
 
       <button
         onClick={handleSubmit}
-        className="w-full bg-[#1a1a1a] text-white font-bold uppercase tracking-wider py-3.5 rounded-xl text-sm hover:bg-[#29d9d5] hover:text-[#1a1a1a] transition-colors duration-300"
+        disabled={isSubmitting}
+        className="w-full bg-[#1a1a1a] text-white font-bold uppercase tracking-wider py-3.5 rounded-xl text-sm hover:bg-[#29d9d5] hover:text-[#1a1a1a] transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        Send message →
+        {isSubmitting ? 'Sending...' : 'Send message →'}
       </button>
     </div>
   );
@@ -655,6 +702,12 @@ export default function PartnersPage() {
               <Link
                 href="/join-vendor"
                 className="inline-block bg-[#29d9d5] text-[#1a1a1a] font-bold uppercase tracking-wider px-8 py-3.5 rounded-xl text-sm hover:bg-white transition-colors duration-300"
+                onClick={() => {
+                  trackEvent('join_vendor_clicked', {
+                    location: 'our_partners_page',
+                    destination: '/join-vendor'
+                  })
+                }}
               >
                 Join as a Vendor
               </Link>
@@ -692,6 +745,12 @@ export default function PartnersPage() {
               <Link
                 href="/join-rider"
                 className="inline-block bg-[#1a1a1a] text-white font-bold uppercase tracking-wider px-8 py-3.5 rounded-xl text-sm hover:bg-[#29d9d5] hover:text-[#1a1a1a] transition-colors duration-300"
+                onClick={() => {
+                  trackEvent('join_rider_clicked', {
+                    location: 'our_partners_page',
+                    destination: '/join-rider'
+                  })
+                }}
               >
                 Join as a Rider
               </Link>
@@ -714,6 +773,12 @@ export default function PartnersPage() {
             <Link
               href="/join-vendor"
               className="self-start md:self-auto inline-block border border-gray-200 text-[#1a1a1a] font-bold uppercase tracking-wider px-6 py-3 rounded-xl text-xs hover:border-[#29d9d5] hover:text-[#29d9d5] transition-colors duration-300"
+              onClick={() => {
+                trackEvent('join_vendor_clicked', {
+                  location: 'our_partners_page_vendor_results_section',
+                  destination: '/join-vendor'
+                })
+              }}
             >
               Become a vendor
             </Link>
@@ -744,6 +809,12 @@ export default function PartnersPage() {
             <Link
               href="/join-rider"
               className="self-start md:self-auto inline-block border border-white/10 text-white font-bold uppercase tracking-wider px-6 py-3 rounded-xl text-xs hover:border-[#29d9d5] hover:text-[#29d9d5] transition-colors duration-300"
+              onClick={() => {
+                trackEvent('join_rider_clicked', {
+                  location: 'our_partners_page_rider_results_section',
+                  destination: '/join-rider'
+                })
+              }}
             >
               Become a rider
             </Link>

@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { trackEvent } from '@/lib/posthog';
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -126,7 +127,7 @@ const DIFFERENTIATORS = [
 ];
 
 const STATS = [
-  { value: '500+', label: 'Merchant partners' },
+  { value: '100+', label: 'Merchant partners' },
   { value: '30 min', label: 'Avg. delivery time' },
   { value: '50k+', label: 'Happy customers' },
   { value: '7 days', label: 'Always on' },
@@ -142,13 +143,14 @@ function ServiceCard({ service }: { service: typeof SERVICES[0] }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        transition: 'box-shadow 0.35s ease, transform 0.35s ease',
+        transition: 'all 0.35s ease', // Simplified to 'all' to cover background and shadow
+        backgroundColor: hovered ? '#121212' : '#ffffff',
         transform: hovered ? 'translateY(-6px)' : 'translateY(0)',
         boxShadow: hovered
-          ? '0 32px 64px rgba(41,217,213,0.13), 0 2px 8px rgba(0,0,0,0.05)'
+          ? '0 32px 64px rgba(0,0,0,0.3), 0 2px 8px rgba(0,0,0,0.1)'
           : '0 2px 16px rgba(0,0,0,0.04)',
       }}
-      className="relative bg-white rounded-3xl border border-gray-100 p-8 md:p-10 overflow-hidden cursor-default flex flex-col"
+      className="relative rounded-3xl border border-gray-100 p-8 md:p-10 overflow-hidden cursor-default flex flex-col"
     >
       {/* top accent bar */}
       <div
@@ -163,7 +165,7 @@ function ServiceCard({ service }: { service: typeof SERVICES[0] }) {
       <div
         className="absolute -top-10 -right-10 w-40 h-40 rounded-full pointer-events-none"
         style={{
-          background: 'radial-gradient(circle, rgba(41,217,213,0.09) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(41,217,213,0.15) 0%, transparent 70%)',
           opacity: hovered ? 1 : 0,
           transition: 'opacity 0.4s ease',
         }}
@@ -174,20 +176,35 @@ function ServiceCard({ service }: { service: typeof SERVICES[0] }) {
         {service.tag}
       </p>
 
-      {/* icon */}
-      <div className="mb-6">{service.icon}</div>
+      {/* icon - Added a brightness filter to make icons pop on dark if they are dark-colored */}
+      <div className={`mb-6 transition-all duration-300 ${hovered ? 'brightness-125' : ''}`}>
+        {service.icon}
+      </div>
 
       {/* title & tagline */}
-      <h3 className="text-2xl md:text-3xl font-black text-[#1a1a1a] leading-tight mb-1">
+      <h3
+        className={`text-2xl md:text-3xl font-black leading-tight mb-1 transition-colors duration-300 ${hovered ? 'text-white' : 'text-[#1a1a1a]'
+          }`}
+      >
         {service.title}
       </h3>
       <p className="text-[#29d9d5] font-semibold text-sm mb-4">{service.tagline}</p>
-      <p className="text-gray-500 text-sm leading-relaxed mb-7">{service.description}</p>
+
+      <p
+        className={`text-sm leading-relaxed mb-7 transition-colors duration-300 ${hovered ? 'text-gray-400' : 'text-gray-500'
+          }`}
+      >
+        {service.description}
+      </p>
 
       {/* bullets */}
       <ul className="space-y-2 mb-8 flex-1">
         {service.bullets.map((b) => (
-          <li key={b} className="flex items-start gap-2.5 text-sm text-gray-600">
+          <li
+            key={b}
+            className={`flex items-start gap-2.5 text-sm transition-colors duration-300 ${hovered ? 'text-gray-300' : 'text-gray-600'
+              }`}
+          >
             <span className="mt-[3px] w-4 h-4 flex-shrink-0 rounded-full bg-[#29d9d5]/10 flex items-center justify-center">
               <svg viewBox="0 0 10 10" className="w-2.5 h-2.5" fill="none">
                 <path d="M2 5l2 2 4-4" stroke="#29d9d5" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
@@ -199,9 +216,16 @@ function ServiceCard({ service }: { service: typeof SERVICES[0] }) {
       </ul>
 
       {/* stat */}
-      <div className="flex items-end gap-2 border-t border-gray-100 pt-5">
-        <span className="text-3xl font-black text-[#1a1a1a]">{service.stat}</span>
-        <span className="text-xs text-gray-400 leading-snug pb-1">{service.statLabel}</span>
+      <div className={`flex items-end gap-2 border-t pt-5 transition-colors duration-300 ${hovered ? 'border-gray-800' : 'border-gray-100'
+        }`}>
+        <span className={`text-3xl font-black transition-colors duration-300 ${hovered ? 'text-white' : 'text-[#1a1a1a]'
+          }`}>
+          {service.stat}
+        </span>
+        <span className={`text-xs leading-snug pb-1 transition-colors duration-300 ${hovered ? 'text-gray-500' : 'text-gray-400'
+          }`}>
+          {service.statLabel}
+        </span>
       </div>
     </div>
   );
@@ -259,14 +283,26 @@ export default function ServicesPage() {
             <Link
               href="https://sosika.app"
               className="inline-block bg-[#29d9d5] text-[#1a1a1a] font-bold uppercase tracking-wider px-8 py-3.5 rounded-xl text-sm shadow-lg shadow-cyan-500/20 hover:bg-white transition-colors duration-300"
+              onClick={() => {
+                trackEvent('open_app_clicked', {
+                  location: 'services_page_hero',
+                  destination: 'https://sosika.app'
+                })
+              }}
             >
               Order Now
             </Link>
             <Link
               href="/our-partners"
               className="inline-block bg-white/5 border border-white/10 text-white font-bold uppercase tracking-wider px-8 py-3.5 rounded-xl text-sm hover:bg-white/10 transition-colors duration-300"
+              onClick={() => {
+                trackEvent('become_partner_clicked', {
+                  location: 'services_page_hero',
+                  destination: '/our-partners'
+                })
+              }}
             >
-              Become a Partner →
+              Become a Partner
             </Link>
           </div>
         </div>
@@ -365,12 +401,24 @@ export default function ServicesPage() {
             <Link
               href="/our-partners"
               className="block text-center bg-[#1a1a1a] text-white font-bold uppercase tracking-wider px-8 py-3.5 rounded-xl text-sm hover:bg-[#29d9d5] hover:text-[#1a1a1a] transition-colors duration-300"
+              onClick={() => {
+                trackEvent('become_partner_clicked', {
+                  location: 'services_page_near_end',
+                  destination: '/our-partners'
+                })
+              }}
             >
               Partner with us
             </Link>
             <Link
               href="/our-partners"
               className="block text-center border border-gray-200 text-[#1a1a1a] font-bold uppercase tracking-wider px-8 py-3.5 rounded-xl text-sm hover:border-[#29d9d5] hover:text-[#29d9d5] transition-colors duration-300"
+              onClick={() => {
+                trackEvent('become_investor_clicked', {
+                  location: 'services_page_near_end',
+                  destination: '/our-partners'
+                })
+              }}
             >
               Investor relations
             </Link>
@@ -390,6 +438,12 @@ export default function ServicesPage() {
           <Link
             href="https://sosika.app"
             className="inline-block bg-[#1a1a1a] text-white font-bold uppercase tracking-wider px-10 py-4 rounded-xl text-sm shadow-xl hover:bg-white hover:text-[#1a1a1a] transition-colors duration-300"
+            onClick={() => {
+              trackEvent('open_app_clicked', {
+                location: 'services_page_end',
+                destination: 'https://sosika.app'
+              })
+            }}
           >
             Start ordering
           </Link>

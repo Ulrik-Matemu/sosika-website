@@ -1,7 +1,7 @@
 'use client';
-
+import { trackEvent } from '@/lib/posthog';
+import posthog from 'posthog-js';
 import React, { useState } from 'react';
-import Link from 'next/link';
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -110,6 +110,50 @@ function VendorApplicationForm() {
   const [form, setForm] = useState<VendorFormData>(INITIAL);
   const [step, setStep] = useState<1 | 2>(1);
   const [submitted, setSubmitted] = useState(false);
+  const [hasTrackedStart, setHasTrackedStart] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async () => {
+    // Add any basic validation here if needed
+    trackEvent("vendor_application_submitted", {
+      form_name: 'vendor_application_form'
+    });
+    if (!form.businessName || !form.phone) {
+      alert("Please fill in the required fields.");
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      const response = await fetch('/api/vendor-applications', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+        trackEvent("vendor_application_submission_success", {
+          form_name: 'vendor_application_form'
+        });
+      } else {
+        throw new Error('Submission failed');
+      }
+    } catch (err) {
+      alert("Something went wrong. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const trackStart = () => {
+    if (!hasTrackedStart) {
+      posthog.capture("vendor_application_form_started", {
+        form_name: 'vendor_application_form'
+      });
+      setHasTrackedStart(true);
+    }
+  }
 
   const set = (key: keyof VendorFormData, value: any) => setForm(p => ({ ...p, [key]: value }));
 
@@ -117,9 +161,9 @@ function VendorApplicationForm() {
     return (
       <div className="text-center py-10">
         <div className="w-16 h-16 bg-[#29d9d5] rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg className="w-8 h-8 text-[#1a1a1a]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-            </svg>
+          <svg className="w-8 h-8 text-[#1a1a1a]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+          </svg>
         </div>
         <h3 className="text-2xl font-black mb-2">Partner Application Sent!</h3>
         <p className="text-gray-500 text-sm">Our partnership manager will contact <b>{form.ownerName}</b> within 24 hours.</p>
@@ -141,7 +185,7 @@ function VendorApplicationForm() {
         <div className="space-y-4">
           <div>
             <label className={labelCls}>Business Name</label>
-            <input value={form.businessName} onChange={e => set('businessName', e.target.value)} placeholder="e.g. Arusha Delights" className={inputCls} />
+            <input value={form.businessName} onFocus={trackStart} onChange={e => set('businessName', e.target.value)} placeholder="e.g. Arusha Delights" className={inputCls} />
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
@@ -155,7 +199,7 @@ function VendorApplicationForm() {
           </div>
           <div>
             <label className={labelCls}>Business Location</label>
-            <input value={form.location} onChange={e => set('location', e.target.value)} placeholder="Street, Area" className={inputCls} />
+            <input value={form.location} onChange={e => set('location', e.target.value)} placeholder="Street, Area, Region" className={inputCls} />
           </div>
           <button onClick={() => setStep(2)} className="w-full bg-[#1a1a1a] text-white font-black py-4 rounded-xl text-sm hover:bg-[#29d9d5] hover:text-[#1a1a1a] transition-all">
             Next Details →
@@ -176,7 +220,13 @@ function VendorApplicationForm() {
           </div>
           <div className="flex gap-2">
             <button onClick={() => setStep(1)} className="flex-1 border border-gray-200 py-4 rounded-xl text-sm font-bold">Back</button>
-            <button onClick={() => setSubmitted(true)} className="flex-2 bg-[#29d9d5] text-[#1a1a1a] font-black py-4 rounded-xl text-sm px-8">Submit Application</button>
+            <button
+              onClick={handleSubmit}
+              disabled={isSubmitting}
+              className="flex-2 bg-[#29d9d5] text-[#1a1a1a] font-black py-4 rounded-xl text-sm px-8 disabled:opacity-50"
+            >
+              {isSubmitting ? 'Sending...' : 'Submit Application'}
+            </button>
           </div>
         </div>
       )}
@@ -204,17 +254,17 @@ export default function VendorPartnerPage() {
               Join Tanzania&apos;s fastest-growing delivery network and start reaching thousands of hungry customers near you.
             </p>
             <div className="flex gap-4">
-                <div className="bg-white/5 border border-white/10 p-4 rounded-2xl">
-                    <p className="text-[#29d9d5] font-black text-2xl">24h</p>
-                    <p className="text-gray-500 text-[10px] uppercase font-bold">Fast Onboarding</p>
-                </div>
-                <div className="bg-white/5 border border-white/10 p-4 rounded-2xl">
-                    <p className="text-[#29d9d5] font-black text-2xl">0%</p>
-                    <p className="text-gray-500 text-[10px] uppercase font-bold">Signup Fees</p>
-                </div>
+              <div className="bg-white/5 border border-white/10 p-4 rounded-2xl">
+                <p className="text-[#29d9d5] font-black text-2xl">24h</p>
+                <p className="text-gray-500 text-[10px] uppercase font-bold">Fast Onboarding</p>
+              </div>
+              <div className="bg-white/5 border border-white/10 p-4 rounded-2xl">
+                <p className="text-[#29d9d5] font-black text-2xl">0%</p>
+                <p className="text-gray-500 text-[10px] uppercase font-bold">Signup Fees</p>
+              </div>
             </div>
           </div>
-          
+
           {/* Application Card */}
           <div className="bg-white rounded-3xl shadow-2xl p-8 lg:p-10">
             <h2 className="text-2xl font-black text-[#1a1a1a] mb-2">Partner with Sosika</h2>
@@ -238,16 +288,16 @@ export default function VendorPartnerPage() {
       {/* Process Bar */}
       <section className="bg-[#29d9d5] py-8">
         <div className="max-w-6xl mx-auto px-6 overflow-x-auto flex items-center justify-between gap-8">
-            {STEPS.map((s, i) => (
-                <div key={s.n} className="flex items-center gap-3 flex-shrink-0">
-                    <span className="w-8 h-8 rounded-full bg-[#1a1a1a] text-white flex items-center justify-center text-xs font-black">{s.n}</span>
-                    <div>
-                        <p className="text-[#1a1a1a] font-black text-xs leading-none">{s.label}</p>
-                        <p className="text-[#1a1a1a]/60 text-[10px] mt-1">{s.note}</p>
-                    </div>
-                    {i < STEPS.length - 1 && <div className="hidden md:block w-12 h-px bg-[#1a1a1a]/20 ml-4" />}
-                </div>
-            ))}
+          {STEPS.map((s, i) => (
+            <div key={s.n} className="flex items-center gap-3 flex-shrink-0">
+              <span className="w-8 h-8 rounded-full bg-[#1a1a1a] text-white flex items-center justify-center text-xs font-black">{s.n}</span>
+              <div>
+                <p className="text-[#1a1a1a] font-black text-xs leading-none">{s.label}</p>
+                <p className="text-[#1a1a1a]/60 text-[10px] mt-1">{s.note}</p>
+              </div>
+              {i < STEPS.length - 1 && <div className="hidden md:block w-12 h-px bg-[#1a1a1a]/20 ml-4" />}
+            </div>
+          ))}
         </div>
       </section>
     </main>

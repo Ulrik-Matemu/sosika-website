@@ -1,7 +1,9 @@
+'use client';
 import Image from "next/image";
 import Link from "next/link";
 import { Clock3, Star, Store } from "lucide-react";
 import type { Vendor } from "@/types/vendor";
+import { trackEvent } from "@/lib/posthog";
 
 type FeaturedVendorsSectionProps = {
   vendors: Vendor[];
@@ -36,8 +38,14 @@ export default function FeaturedVendorsSection({
           {vendors.map((vendor) => (
             <Link
               key={vendor.id}
-              href={`/vendors/${vendor.id}`}
+              href={`https://sosika.app/vendor/${vendor.id}/menu`}
               className="group overflow-hidden rounded-3xl border border-[#29d9d5] bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+              onClick={() => {
+                trackEvent("vendor_card_clicked", {
+                  location: 'vendor-section',
+                  destination: `https://sosika.app/vendor/${vendor.id}/menu`,
+                })
+              }}
             >
               <div className="relative h-56 overflow-hidden">
                 <Image
@@ -88,6 +96,12 @@ export default function FeaturedVendorsSection({
           <Link
             href="https://sosika.app/"
             className="inline-flex items-center uppercase rounded-xl px-8 py-3 text-lg font-semibold bg-black hover:bg-white hover:text-[#1a1c20] text-white transition-colors duration-300"
+            onClick={() => {
+              trackEvent("view_all_vendors_clicked", {
+                location: 'vendor-section',
+                destination: "https://sosika.app/",
+              })
+            }}
           >
             View all vendors
           </Link>

@@ -2,6 +2,8 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import posthog from 'posthog-js';
+import { trackEvent } from '@/lib/posthog';
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -89,8 +91,8 @@ const STEPS = [
 
 const VEHICLE_OPTIONS = ['Bicycle', 'Motorcycle', 'Scooter', 'Car'];
 const ZONE_OPTIONS = [
-  'Kinondoni', 'Ilala', 'Temeke', 'Ubungo', 'Kigamboni',
-  'Mikocheni', 'Sinza', 'Magomeni', 'Kariakoo', 'Other',
+  'Arusha', 'Dar es salaam', 'Mwanza', 'Dodoma', 'Tanga',
+  'Pemba', 'Unguja', 'Singida', 'Manyara', 'Kilimanjaro', 'Tabora', 'Ruvuma', 'Morogoro', 'Lindi', 'Mtwara', 'Shinyanga', 'Kagera', 'Kigoma', 'Geita', 'Simiyu', 'Katavi', 'Rukwa', 'Njombe', 'Iringa', 'Mbeya', 'Songwe',
 ];
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -180,6 +182,8 @@ function RiderApplicationForm() {
   const [step, setStep] = useState<1 | 2>(1);
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
+  const [hasTrackedStart, setHasTrackedStart] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const set = (key: keyof FormData, value: unknown) =>
     setForm((p) => ({ ...p, [key]: value }));
@@ -218,9 +222,45 @@ function RiderApplicationForm() {
     if (validateStep1()) setStep(2);
   };
 
-  const handleSubmit = () => {
-    if (validateStep2()) setSubmitted(true);
+  const handleSubmit = async () => {
+    if (!validateStep2()) return;
+
+
+    trackEvent("rider_application_submitted", {
+      form_name: 'rider_form'
+    });
+    setIsSubmitting(true);
+    try {
+      const response = await fetch('/api/rider-applications', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+        trackEvent("rider_application_submission_success", {
+          form_name: 'rider_form'
+        });
+      } else {
+        alert("Something went wrong. Please try again.");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Network error. Please check your connection.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
+  const trackStart = () => {
+    if (!hasTrackedStart) {
+      posthog.capture("rider_application_started", {
+        form_name: 'rider_application_form'
+      });
+      setHasTrackedStart(true);
+    }
+  }
 
   if (submitted) {
     return (
@@ -250,7 +290,7 @@ function RiderApplicationForm() {
             Back to home
           </Link>
           <Link
-            href="/partners"
+            href="/our-partners"
             className="block text-center border border-gray-200 text-gray-500 font-bold uppercase tracking-wider py-3.5 rounded-xl text-xs hover:border-[#29d9d5] hover:text-[#29d9d5] transition-colors duration-300"
           >
             Explore partners
@@ -290,6 +330,7 @@ function RiderApplicationForm() {
             <Field label="First name">
               <input
                 value={form.firstName}
+                onFocus={trackStart}
                 onChange={(e) => set('firstName', e.target.value)}
                 placeholder="Amina"
                 className={`${inputCls} ${errors.firstName ? 'border-red-300' : ''}`}
@@ -480,9 +521,10 @@ function RiderApplicationForm() {
             </button>
             <button
               onClick={handleSubmit}
-              className="flex-1 bg-[#29d9d5] text-[#1a1a1a] font-black uppercase tracking-wider py-4 rounded-xl text-sm hover:bg-[#1a1a1a] hover:text-white transition-colors duration-300"
+              disabled={isSubmitting}
+              className="flex-1 bg-[#29d9d5] text-[#1a1a1a] font-black uppercase tracking-wider py-4 rounded-xl text-sm hover:bg-[#1a1a1a] hover:text-white transition-colors duration-300 disabled:opacity-50"
             >
-              Submit application
+              {isSubmitting ? 'Sending...' : 'Submit application'}
             </button>
           </div>
         </div>
@@ -501,7 +543,7 @@ export default function RiderApplyPage() {
       <section className="relative md:mt-18 min-h-[75vh] flex items-center overflow-hidden bg-[#1a1a1a]">
 
         {/* blobs */}
-        <div aria-hidden="true" className="absoluate -top-32 -right-32 w-[580px] h-[580px] rounded-full pointer-events-none"
+        <div aria-hidden="true" className="absolute -top-32 -right-32 w-[580px] h-[580px] rounded-full pointer-events-none"
           style={{ background: 'radial-gradient(circle, rgba(41,217,213,0.15) 0%, transparent 70%)' }} />
         <div aria-hidden="true" className="absolute bottom-0 left-0 w-[380px] h-[380px] rounded-full pointer-events-none"
           style={{ background: 'radial-gradient(circle, rgba(41,217,213,0.07) 0%, transparent 70%)' }} />
@@ -554,7 +596,7 @@ export default function RiderApplyPage() {
           <div className="hidden lg:flex items-center justify-center relative">
             <div className="absolute w-72 h-72 rounded-full"
               style={{ background: 'radial-gradient(circle, rgba(41,217,213,0.12) 0%, transparent 70%)' }} />
-           
+
           </div>
         </div>
 
@@ -717,7 +759,7 @@ export default function RiderApplyPage() {
               WhatsApp us
             </a>
             <Link
-              href="/partners"
+              href="/our-partners"
               className="inline-block bg-transparent border-2 border-[#1a1a1a] text-[#1a1a1a] font-bold uppercase tracking-wider px-8 py-3.5 rounded-xl text-sm hover:bg-[#1a1a1a] hover:text-white transition-colors duration-300"
             >
               Back to partners
