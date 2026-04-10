@@ -286,7 +286,8 @@ export default function ServicesPage() {
               onClick={() => {
                 trackEvent('open_app_clicked', {
                   location: 'services_page_hero',
-                  destination: 'https://sosika.app'
+                  destination: 'https://sosika.app',
+                  platform: 'website',
                 })
               }}
             >
@@ -298,7 +299,8 @@ export default function ServicesPage() {
               onClick={() => {
                 trackEvent('become_partner_clicked', {
                   location: 'services_page_hero',
-                  destination: '/our-partners'
+                  destination: '/our-partners',
+                  platform: 'website',
                 })
               }}
             >
@@ -404,7 +406,8 @@ export default function ServicesPage() {
               onClick={() => {
                 trackEvent('become_partner_clicked', {
                   location: 'services_page_near_end',
-                  destination: '/our-partners'
+                  destination: '/our-partners',
+                  platform: 'website',
                 })
               }}
             >
@@ -416,7 +419,8 @@ export default function ServicesPage() {
               onClick={() => {
                 trackEvent('become_investor_clicked', {
                   location: 'services_page_near_end',
-                  destination: '/our-partners'
+                  destination: '/our-partners',
+                  platform: 'website',
                 })
               }}
             >
@@ -441,7 +445,8 @@ export default function ServicesPage() {
             onClick={() => {
               trackEvent('open_app_clicked', {
                 location: 'services_page_end',
-                destination: 'https://sosika.app'
+                destination: 'https://sosika.app',
+                platform: 'website',
               })
             }}
           >

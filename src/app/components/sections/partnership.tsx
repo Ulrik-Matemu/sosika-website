@@ -3,6 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { trackEvent } from '@/lib/posthog';
+import { platform } from 'os';
 
 const Partnership = () => {
   const cards = [
@@ -54,7 +55,8 @@ const Partnership = () => {
                       onClick={() => {
                         trackEvent("partner_learn_more_clicked", {
                           location: 'partner-section',
-                          destination: `${card.link}`
+                          destination: `${card.link}`,
+                          platform: 'website',
                         })
                       }}
                     >

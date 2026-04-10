@@ -456,7 +456,8 @@ function OtherPartnershipForm() {
     if (!form.name || !form.email || !form.message) return;
 
     trackEvent("other_partnership_form_submitted", {
-      form_name: 'other_partnership_form'
+      form_name: 'other_partnership_form',
+      platform: 'website',
     });
 
     setIsSubmitting(true);
@@ -470,7 +471,8 @@ function OtherPartnershipForm() {
       if (response.ok) {
         setSubmitted(true);
         trackEvent("other_partnership_form_submission_success", {
-          form_name: 'other_partnership_form'
+          form_name: 'other_partnership_form',
+          platform: 'website',
         });
       } else {
         throw new Error('Failed to submit');
@@ -705,7 +707,8 @@ export default function PartnersPage() {
                 onClick={() => {
                   trackEvent('join_vendor_clicked', {
                     location: 'our_partners_page',
-                    destination: '/join-vendor'
+                    destination: '/join-vendor',
+                    platform: 'website',
                   })
                 }}
               >
@@ -748,7 +751,8 @@ export default function PartnersPage() {
                 onClick={() => {
                   trackEvent('join_rider_clicked', {
                     location: 'our_partners_page',
-                    destination: '/join-rider'
+                    destination: '/join-rider',
+                    platform: 'website',
                   })
                 }}
               >
@@ -776,7 +780,8 @@ export default function PartnersPage() {
               onClick={() => {
                 trackEvent('join_vendor_clicked', {
                   location: 'our_partners_page_vendor_results_section',
-                  destination: '/join-vendor'
+                  destination: '/join-vendor',
+                  platform: 'website',
                 })
               }}
             >
@@ -812,7 +817,8 @@ export default function PartnersPage() {
               onClick={() => {
                 trackEvent('join_rider_clicked', {
                   location: 'our_partners_page_rider_results_section',
-                  destination: '/join-rider'
+                  destination: '/join-rider',
+                  platform: 'website',
                 })
               }}
             >

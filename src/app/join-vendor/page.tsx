@@ -116,7 +116,8 @@ function VendorApplicationForm() {
   const handleSubmit = async () => {
     // Add any basic validation here if needed
     trackEvent("vendor_application_submitted", {
-      form_name: 'vendor_application_form'
+      form_name: 'vendor_application_form',
+      platform: 'website',
     });
     if (!form.businessName || !form.phone) {
       alert("Please fill in the required fields.");
@@ -134,7 +135,8 @@ function VendorApplicationForm() {
       if (response.ok) {
         setSubmitted(true);
         trackEvent("vendor_application_submission_success", {
-          form_name: 'vendor_application_form'
+          form_name: 'vendor_application_form',
+          platform: 'website',
         });
       } else {
         throw new Error('Submission failed');

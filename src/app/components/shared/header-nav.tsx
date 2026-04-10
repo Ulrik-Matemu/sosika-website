@@ -3,10 +3,12 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ChevronRight, X } from 'lucide-react';
 import { trackEvent } from '@/lib/posthog';
+import posthog from '@/lib/posthog';
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const websiteDistinctId = posthog.get_distinct_id();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,9 +49,8 @@ const Navbar = () => {
             <li key={link.name}>
               <Link
                 href={link.href}
-                className={`flex items-center gap-1 text-[15px] font-bold transition-colors ${
-                  link.active ? 'text-[#29d9d5]' : 'text-black hover:text-[#29d9d5]'
-                }`}
+                className={`flex items-center gap-1 text-[15px] font-bold transition-colors ${link.active ? 'text-[#29d9d5]' : 'text-black hover:text-[#29d9d5]'
+                  }`}
               >
                 {link.name}
                 {link.hasArrow && <ChevronRight size={14} strokeWidth={3} className="mt-0.5" />}
@@ -61,12 +62,16 @@ const Navbar = () => {
         {/* CTA Button */}
         <div className="hidden lg:block">
           <Link
-            href="https://sosika.app"
+            href={`https://sosika.app/?utm_source=website&utm_medium=cta&utm_campaign=header_desktop&utm_content=open_app_button` + `&web_distinct_id=${encodeURIComponent(websiteDistinctId)}`}
             className="bg-black hover:bg-white hover:text-[#1a1c20] transition-colors duration-200 text-white uppercase px-8 py-3 rounded-xl font-bold text-sm shadow-lg shadow-cyan-500/30 active:scale-95"
             onClick={() => {
               trackEvent("open_app_clicked", {
                 location: "header_desktop",
                 destination: "https://sosika.app",
+                platform: 'website',
+                utm_source: "website",
+                utm_medium: "cta",
+                utm_campaign: 'header_desktop'
               })
             }}
           >
@@ -94,9 +99,8 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       <div
-        className={`lg:hidden fixed inset-0 z-40 bg-white transition-transform duration-300 ease-in-out ${
-          menuOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}
+        className={`lg:hidden fixed inset-0 z-40 bg-white transition-transform duration-300 ease-in-out ${menuOpen ? 'translate-x-0' : 'translate-x-full'
+          }`}
       >
         <ul className="flex flex-col mt-24 px-8">
           {navLinks.map((link, i) => (
@@ -119,12 +123,16 @@ const Navbar = () => {
 
         <div className="px-8 mt-8">
           <Link
-            href="https://sosika.app"
+            href={`https://sosika.app/?utm_source=website&utm_medium=cta&utm_campaign=header_mobile&utm_content=open_app_button` + `&web_distinct_id=${encodeURIComponent(websiteDistinctId)}`}
             onClick={() => {
               setMenuOpen(false);
               trackEvent("open_app_clicked", {
                 location: "header_mobile",
                 destination: "https://sosika.app",
+                platform: 'website',
+                utm_source: "website",
+                utm_medium: "cta",
+                utm_campaign: 'header_mobile'
               })
             }}
             className="block text-center bg-black hover:bg-[#29d9d5] hover:text-black transition-colors duration-200 text-white uppercase px-8 py-4 rounded-xl font-bold text-sm shadow-lg shadow-cyan-500/30 active:scale-95"

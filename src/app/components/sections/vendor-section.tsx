@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Clock3, Star, Store } from "lucide-react";
 import type { Vendor } from "@/types/vendor";
 import { trackEvent } from "@/lib/posthog";
+import posthog from "@/lib/posthog";
 
 type FeaturedVendorsSectionProps = {
   vendors: Vendor[];
@@ -18,6 +19,8 @@ export default function FeaturedVendorsSection({
   vendors,
 }: FeaturedVendorsSectionProps) {
   if (!vendors.length) return null;
+
+  const websiteDistinctId = posthog.get_distinct_id();
 
   return (
     <section className="bg-slate-200 py-10 md:py-20 md:px-16">
@@ -94,12 +97,16 @@ export default function FeaturedVendorsSection({
 
         <div className="mt-10 flex justify-center">
           <Link
-            href="https://sosika.app/"
+            href={`https://sosika.app/?utm_source=website&utm_medium=cta&utm_campaign=vendor_section&utm_content=open_app_button` + `&web_distinct_id=${encodeURIComponent(websiteDistinctId)}`}
             className="inline-flex items-center uppercase rounded-xl px-8 py-3 text-lg font-semibold bg-black hover:bg-white hover:text-[#1a1c20] text-white transition-colors duration-300"
             onClick={() => {
               trackEvent("view_all_vendors_clicked", {
                 location: 'vendor-section',
                 destination: "https://sosika.app/",
+                platform: 'website',
+                utm_source: "website",
+                utm_medium: "cta",
+                utm_campaign: 'vendor_section'
               })
             }}
           >

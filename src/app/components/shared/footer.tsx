@@ -15,6 +15,7 @@ const Footer = () => {
     setIsSubmitting(true);
     trackEvent('newsletter_subscription_attempt', {
       location: 'footer',
+      platform: 'website',
     }
     );
 
@@ -30,6 +31,7 @@ const Footer = () => {
         setEmail('');
         trackEvent('newsletter_subscription_success', {
           location: 'footer',
+          platform: 'website',
         });
       }
     } catch (err) {

@@ -227,7 +227,8 @@ function RiderApplicationForm() {
 
 
     trackEvent("rider_application_submitted", {
-      form_name: 'rider_form'
+      form_name: 'rider_form',
+      platform: 'website',
     });
     setIsSubmitting(true);
     try {
@@ -240,7 +241,8 @@ function RiderApplicationForm() {
       if (response.ok) {
         setSubmitted(true);
         trackEvent("rider_application_submission_success", {
-          form_name: 'rider_form'
+          form_name: 'rider_form',
+          platform: 'website',
         });
       } else {
         alert("Something went wrong. Please try again.");
