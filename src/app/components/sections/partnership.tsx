@@ -1,5 +1,8 @@
+'use client';
 import React from 'react';
+import Link from 'next/link';
 import Image from 'next/image';
+import { trackEvent } from '@/lib/posthog';
 
 const Partnership = () => {
   const cards = [
@@ -45,12 +48,18 @@ const Partnership = () => {
                   </h3>
                   
                   <div>
-                    <a
+                    <Link
                       href={card.link}
                       className="inline-block bg-[#29d9d5] hover:bg-white hover:text-[#1a1c20] text-white px-8 py-3 rounded-xl font-bold uppercase tracking-wider text-sm transition-colors duration-300"
+                      onClick={() => {
+                        trackEvent("partner_learn_more_clicked", {
+                          location: 'partner-section',
+                          destination: `${card.link}`
+                        })
+                      }}
                     >
                       Learn More
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>

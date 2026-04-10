@@ -3,16 +3,39 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { MapPin, Phone, ChevronRight, ArrowUp, Send } from 'lucide-react';
 import { SocialIcon } from 'react-social-icons';
+import { trackEvent } from '@/lib/posthog';
 
 const Footer = () => {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) {
-      setSubscribed(true);
-      setEmail('');
+    setIsSubmitting(true);
+    trackEvent('newsletter_subscription_attempt', {
+      location: 'footer',
+    }
+    );
+
+    try {
+      const response = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+
+      if (response.ok) {
+        setSubscribed(true);
+        setEmail('');
+        trackEvent('newsletter_subscription_success', {
+          location: 'footer',
+        });
+      }
+    } catch (err) {
+      console.error("Subscription failed", err);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -72,7 +95,7 @@ const Footer = () => {
 
       {/* ── Content ── */}
       <div className="relative z-10 max-w-7xl mx-auto px-8 pt-20 pb-8">
-        
+
         {/* ── Top accent line ── */}
         <div className="w-16 h-[2px] mb-14" style={{ background: 'linear-gradient(90deg, #29d9d5, transparent)' }} />
 
@@ -90,9 +113,9 @@ const Footer = () => {
             {/* Social icons */}
             <div className="flex flex-wrap gap-2 pt-1">
               {[
-                { url: 'https://instagram.com/sosika.app', network: 'instagram' },
-                { url: 'https://youtube.com', network: 'whatsapp' },
-                { url: 'sosika.app@gmail.com', network: 'email' },
+                { url: 'https://www.instagram.com/sosika.app/', network: 'instagram' },
+                { url: 'https://wa.me/255760903468', network: 'whatsapp' },
+                { url: 'mailto:sosika.app@gmail.com', network: 'email' },
               ].map(({ url, network }) => (
                 <SocialIcon
                   key={network}
@@ -113,7 +136,7 @@ const Footer = () => {
               Explore
             </h3>
             <ul className="space-y-4">
-              {[{name: 'Home', href: '/'}, {name: 'Our Services', href: '/our-services'}, {name: 'About Us', href: '/about-us'}, {name: 'Blog', href: '/blog'}].map((link) => (
+              {[{ name: 'Home', href: '/' }, { name: 'Our Services', href: '/our-services' }, { name: 'About Us', href: '/about-us' }, { name: 'Blog', href: '/blog' }].map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
@@ -210,16 +233,15 @@ const Footer = () => {
                 </div>
                 <button
                   type="submit"
-                  className="group w-full flex items-center justify-center gap-2 py-3 px-4 rounded-lg text-sm font-bold tracking-wide transition-all duration-200"
+                  disabled={isSubmitting}
+                  className="group w-full flex items-center justify-center gap-2 py-3 px-4 rounded-lg text-sm font-bold tracking-wide transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed"
                   style={{
                     background: 'linear-gradient(135deg, #29d9d5 0%, #1fb8b4 100%)',
                     color: '#1a1f2a',
                   }}
-                  onMouseEnter={e => (e.currentTarget.style.filter = 'brightness(1.1)')}
-                  onMouseLeave={e => (e.currentTarget.style.filter = 'brightness(1)')}
                 >
-                  Subscribe
-                  <Send size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
+                  {isSubmitting ? 'Joining...' : 'Subscribe'}
+                  {!isSubmitting && <Send size={14} className="transition-transform duration-200 group-hover:translate-x-1" />}
                 </button>
               </form>
             )}
@@ -238,8 +260,8 @@ const Footer = () => {
             {' '}— All rights reserved.
           </p>
           <div className="flex items-center gap-6">
-            <Link href="#" className="hover:text-white transition-colors duration-200">Privacy Policy</Link>
-            <Link href="#" className="hover:text-white transition-colors duration-200">Terms of Service</Link>
+            <Link href="/privacy-policy" className="hover:text-white transition-colors duration-200">Privacy Policy</Link>
+            <Link href="/terms-of-service" className="hover:text-white transition-colors duration-200">Terms of Service</Link>
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               className="w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200"

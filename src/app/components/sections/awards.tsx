@@ -25,7 +25,7 @@ const awards = [
     text: 'text-white',
     badgeStyle: 'bg-[#29d9d5]/15 text-[#29d9d5]',
     yearOpacity: 'text-white/10',
-    link: '/affroinnovative-youth-awards-2025',
+    link: '/afroinnovate-youth-competition-2025',
   },
 ];
 

@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ChevronRight, X } from 'lucide-react';
+import { trackEvent } from '@/lib/posthog';
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -19,7 +20,7 @@ const Navbar = () => {
   const navLinks = [
     { name: 'Home', href: '/', hasArrow: false, active: false },
     { name: 'About Us', href: '/about-us', hasArrow: false },
-    { name: 'Our Services', href: '/our-service', hasArrow: false },
+    { name: 'Our Services', href: '/our-services', hasArrow: false },
     { name: 'Our Partners', href: '/our-partners', hasArrow: false },
     { name: 'Contacts', href: '/contact-us', hasArrow: false },
   ];
@@ -62,6 +63,12 @@ const Navbar = () => {
           <Link
             href="https://sosika.app"
             className="bg-black hover:bg-white hover:text-[#1a1c20] transition-colors duration-200 text-white uppercase px-8 py-3 rounded-xl font-bold text-sm shadow-lg shadow-cyan-500/30 active:scale-95"
+            onClick={() => {
+              trackEvent("open_app_clicked", {
+                location: "header_desktop",
+                destination: "https://sosika.app",
+              })
+            }}
           >
             Open App
           </Link>
@@ -113,7 +120,13 @@ const Navbar = () => {
         <div className="px-8 mt-8">
           <Link
             href="https://sosika.app"
-            onClick={() => setMenuOpen(false)}
+            onClick={() => {
+              setMenuOpen(false);
+              trackEvent("open_app_clicked", {
+                location: "header_mobile",
+                destination: "https://sosika.app",
+              })
+            }}
             className="block text-center bg-black hover:bg-[#29d9d5] hover:text-black transition-colors duration-200 text-white uppercase px-8 py-4 rounded-xl font-bold text-sm shadow-lg shadow-cyan-500/30 active:scale-95"
           >
             Open App

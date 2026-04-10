@@ -1,8 +1,9 @@
-
+'use client'
 import Image from 'next/image';
 // Import your wrappers instead of framer-motion directly
 import { MotionButton } from '@/app/components/shared/motion-wrapper';
 import Link from 'next/link';
+import { trackEvent } from '@/lib/posthog';
 
 const Hero = () => {
     return (
@@ -43,6 +44,12 @@ const Hero = () => {
                             initial={{ opacity: 0, y: 18 }}
                             animate={{ opacity: 1, y: 0 }}
                             whileHover={{ y: -2, scale: 1.02 }}
+                            onClick={() => {
+                                trackEvent("open_app_clicked", {
+                                    location: "hero_section",
+                                    destination: "https://sosika.app",
+                                })
+                            }}
                         >
                             Order Now
                         </MotionButton>
