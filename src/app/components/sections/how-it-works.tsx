@@ -53,10 +53,10 @@ const HowItWorks = () => {
         <div
           className="text-center mb-14 md:mb-20 space-y-4 px-2"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#2d3436] tracking-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#FFFFF0] tracking-tight">
             How It Works
           </h2>
-          <p className="text-gray-500 max-w-2xl mx-auto text-sm sm:text-base md:text-lg">
+          <p className="text-slate-300 max-w-2xl mx-auto text-sm sm:text-base md:text-lg">
             Getting your favorite food delivered is easier than ever.
           </p>
         </div>
@@ -91,11 +91,11 @@ const HowItWorks = () => {
               </div>
 
               <div className="space-y-3">
-                <h3 className="text-xl sm:text-2xl font-black text-[#2d3436] flex items-center justify-center gap-3">
-                  <span className="text-3xl sm:text-4xl text-[#29d9d5]/30">{step.number}</span>
+                <h3 className="text-xl sm:text-2xl font-black text-[#FFFFF0] flex items-center justify-center gap-3">
+                  <span className="text-3xl sm:text-4xl text-[#29d9d5]/80">{step.number}</span>
                   {step.title}
                 </h3>
-                <p className="text-gray-500 text-sm lg:text-base px-2 max-w-sm">
+                <p className="text-slate-300 text-sm lg:text-base px-2 max-w-sm">
                   {step.description}
                 </p>
               </div>

@@ -235,10 +235,10 @@ function ServiceCard({ service }: { service: typeof SERVICES[0] }) {
 
 export default function ServicesPage() {
   return (
-    <main className="w-full bg-[#f8fafa] text-[#1a1a1a] overflow-x-hidden">
+    <main className="w-full bg-transparent text-[#1a1a1a] overflow-x-hidden">
 
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
-      <section className="relative md:mt-18 min-h-[80vh] flex items-center justify-center overflow-hidden bg-[#1a1a1a]">
+      <section className="relative md:mt- min-h-[80vh] flex items-center justify-center overflow-hidden bg-transparent">
 
         {/* blob top-left */}
         <div
@@ -263,18 +263,14 @@ export default function ServicesPage() {
           }}
         />
 
-        <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-24 w-full py-28 text-center">
-          {/* pill */}
-          <span className="inline-block text-xs font-bold tracking-[0.22em] uppercase text-[#29d9d5] bg-[#29d9d5]/10 px-4 py-1.5 rounded-full mb-8">
-            Our Services
-          </span>
-
-          <h1 className="font-black text-white text-5xl sm:text-6xl lg:text-[88px] leading-[1.04] mb-6">
+        <div className="relative z-10 md:mt-12 max-w-6xl mx-auto px-6 md:px-24 w-full py-28 text-center">
+         
+          <h1 className="font-black text-[#FFFFF0] text-5xl sm:text-6xl lg:text-[88px] leading-[1.04] mb-6">
             Everything<br />
             <span style={{ color: '#29d9d5' }}>Delivered.</span>
           </h1>
 
-          <p className="max-w-xl mx-auto text-gray-400 text-lg leading-relaxed mb-10">
+          <p className="max-w-xl mx-auto text-slate-300 text-lg leading-relaxed mb-10">
             Sosika is Tanzania&apos;s on-demand delivery platform — bringing food, groceries,
             medicine, and retail goods to your doorstep, faster than ever before.
           </p>
@@ -328,7 +324,7 @@ export default function ServicesPage() {
           <p className="text-xs font-bold tracking-[0.2em] uppercase text-[#29d9d5] mb-3">
             What we offer
           </p>
-          <h2 className="text-4xl md:text-5xl font-black text-[#1a1a1a] leading-tight">
+          <h2 className="text-4xl md:text-5xl font-black text-[#FFFFF0] leading-tight">
             One platform.<br />Every need.
           </h2>
         </div>

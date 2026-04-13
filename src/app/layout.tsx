@@ -42,7 +42,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${titillium.variable} font-sans antialiased`}
         style={{
-          background: 'linear-gradient(135deg, #f0fdfc 0%, #e6fafa 40%, #ccf5f4 70%, #b8f0ef 100%)',
+          background: 'linear-gradient(135deg, #0f172a 0%, #062f3a 40%, #033a41 70%, #0b4f54 100%)',
         }}>
         <PostHogProvider>
           <PageViewTracker />

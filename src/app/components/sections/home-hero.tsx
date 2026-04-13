@@ -28,13 +28,13 @@ const Hero = () => {
                         className="flex flex-col justify-center"
   
                     >
-                        <h1 className="font-black leading-[1.08] mb-6 text-[#1a1a1a] text-5xl sm:text-5xl lg:text-7xl text-center md:text-left">
+                        <h1 className="font-black leading-[1.08] mb-6 text-[#FFFFF0] text-5xl sm:text-5xl lg:text-7xl text-center md:text-left">
                             The #1 Food Delivery Service <br />
                             <span
                                 style={{ color: '#29d9d5', display: 'inline-block' }}
        
                             >
-                                In Tanzania<span className='text-[#1a1a1a]'>.</span>
+                                In Tanzania<span className='text-[#FFFFF0]'>.</span>
                             </span>
                         </h1>
 

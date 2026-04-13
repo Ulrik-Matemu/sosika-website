@@ -24,11 +24,11 @@ export default function AboutUsHero({
       <div className="relative mx-auto grid min-h-[85vh] max-w-7xl items-center gap-14 px-6 py-16 md:px-10 lg:grid-cols-[1.05fr_1fr] lg:px-16 lg:py-20">
         {/* Left content */}
         <div className="max-w-2xl">
-          <h1 className="text-5xl md:text-4xl font-black text-center md:text-left leading-[1.05] tracking-[-0.03em] text-[#2f2f2f]  lg:text-6xl">
+          <h1 className="text-5xl md:text-4xl font-black text-center md:text-left leading-[1.05] tracking-[-0.03em] text-[#FFFFF0]  lg:text-6xl">
             Nothing to worry about with <span className="text-[#29d9d5]">Sosika</span>
           </h1>
 
-          <p className="mt-6 max-w-xl text-justify md:text-left text-base leading-8 text-[#6a6a6a] sm:text-lg">
+          <p className="mt-6 max-w-xl text-justify md:text-left text-base leading-8 text-slate-300 sm:text-lg">
             {description}
           </p>
         </div>
@@ -45,6 +45,7 @@ export default function AboutUsHero({
                 src={imageSrc}
                 alt={imageAlt}
                 fill
+                sizes=""
                 priority
                 className="object-cover"
               />
