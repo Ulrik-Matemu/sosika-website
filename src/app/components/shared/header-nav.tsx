@@ -47,14 +47,8 @@ const Navbar = () => {
             <li key={link.name}>
               <Link
                 href={link.href}
-<<<<<<< Updated upstream
-                className={`flex items-center gap-1 text-[15px] font-bold transition-colors ${
-                  link.active ? 'text-[#29d9d5]' : 'text-black hover:text-[#29d9d5]'
-                }`}
-=======
                 className={`flex items-center gap-1 text-[15px] font-bold transition-colors ${scrolled ? 'text-black' : 'text-[#FFFFF0]'} ${link.active ? 'text-[#FFFFF0]' : 'text-[#FFFFF0] hover:text-[#29d9d5]'
                   }`}
->>>>>>> Stashed changes
               >
                 {link.name}
                 {link.hasArrow && <ChevronRight size={14} strokeWidth={3} className="mt-0.5" />}
