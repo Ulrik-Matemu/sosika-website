@@ -28,6 +28,7 @@ const Navbar = () => {
   return (
     <>
       <nav
+        aria-label="Primary navigation"
         className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 md:px-24 transition-all duration-300
           ${scrolled
             ? 'py-3 bg-white/90 backdrop-blur-md shadow-sm shadow-black/5'
@@ -37,7 +38,7 @@ const Navbar = () => {
         {/* Logo Section */}
         <div className="flex items-center gap-3">
           <div className="flex flex-col leading-tight">
-            <span className="text-5xl font-black text-[#29d9d5] tracking-tight">Sosika</span>
+            <span className={`text-5xl font-black  tracking-tight ${scrolled ? 'text-[#0f172a]' : 'text-[#29d9d5]'}`}>Sosika</span>
           </div>
         </div>
 

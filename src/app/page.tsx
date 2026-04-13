@@ -11,7 +11,7 @@ export default async function Home() {
  const vendors = await getFeaturedVendors(3);
 
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen" aria-label='Main Content'>
      <Hero />
      <FeaturedVendorsSection vendors={vendors} /> 
      <HowItWorks />
