@@ -17,7 +17,11 @@ function formatRating(rating: number) {
 export default function FeaturedVendorsSection({
   vendors,
 }: FeaturedVendorsSectionProps) {
-  if (!vendors.length) return null;
+  if (!vendors.length) {
+    return null
+  } else {
+    console.log(vendors);
+  };
 
   return (
     <section className="bg-transparent py-10 md:py-20 md:px-16">

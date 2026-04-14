@@ -636,11 +636,11 @@ export default function PartnersPage() {
         <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-24 w-full py-28">
           <div className=" md:mt-12">
            
-            <h1 className="font-black text-white text-right text-5xl sm:text-6xl lg:text-[82px] leading-[1.04] mb-6">
+            <h1 className="font-black text-white text-center md:text-right text-5xl sm:text-6xl lg:text-[82px] leading-[1.04] mb-6">
               Grow together.<br />
               <span style={{ color: '#29d9d5' }}>Win together.</span>
             </h1>
-            <p className="text-gray-400 text-lg text-right leading-relaxed pl-60 mb-10">
+            <p className="text-slate-300 text-lg text-center md:text-right leading-relaxed md:pl-60 mb-10">
               Sosika connects vendors, riders, and businesses into Tanzania&apos;s fastest-growing
               delivery ecosystem. Whether you cook, ride, or build — there&apos;s a place for you here.
             </p>

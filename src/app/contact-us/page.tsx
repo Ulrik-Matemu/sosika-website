@@ -8,17 +8,17 @@ export default function ContactUsPage() {
 
                     {/* LEFT — text + info cards */}
                     <div className="flex-1 min-w-0 w-full">
-                        <h1 className="text-5xl lg:text-[56px] font-black leading-tight  mb-5">
+                        <h1 className="text-5xl lg:text-[56px] font-black text-[#FFFFF0] leading-tight  mb-5">
                             Contact <em className="text-[#888]">Us</em>
                         </h1>
-                        <p className="text-base lg:text-[17px] leading-relaxed text-[#666] font-light max-w-md mb-10">
+                        <p className="text-base lg:text-[17px] leading-relaxed text-slate-300 text-[#666] font-light max-w-md mb-10">
                             Have a question, partnership idea, or just want to say hello? We'd love
                             to hear from you. Our team is always ready to help.
                         </p>
 
                         <div className="flex flex-col sm:flex-row gap-4">
                             {/* Address */}
-                            <div className="bg-white border border-gray-100 rounded-2xl p-5 flex-1 hover:bg-black hover:text-white transition-colors duration-200">
+                            <div className="bg-transparent border border-gray-100 rounded-2xl p-5 flex-1 hover:bg-black hover:text-white transition-colors duration-200">
                                 <p className="text-[11px] tracking-[0.12em] uppercase text-[#29d9d5] font-medium mb-3">
                                     Our Location
                                 </p>
@@ -31,7 +31,7 @@ export default function ContactUsPage() {
                             </div>
 
                             {/* Email */}
-                            <div className="bg-white border border-gray-100 rounded-2xl p-5 flex-1 hover:bg-black hover:text-white transition-colors duration-200">
+                            <div className="bg-transparent border border-gray-100 rounded-2xl p-5 flex-1 hover:bg-black hover:text-white transition-colors duration-200">
                                 <p className="text-[11px] tracking-[0.12em] uppercase text-[#29d9d5] font-medium mb-3">
                                     Email us
                                 </p>
@@ -44,7 +44,7 @@ export default function ContactUsPage() {
                             </div>
 
                             {/* Phone */}
-                            <div className="bg-white border border-gray-100 rounded-2xl p-5 flex-1 hover:bg-black hover:text-white transition-colors duration-200">
+                            <div className="bg-transparent border border-gray-100 rounded-2xl p-5 flex-1 hover:bg-black hover:text-white transition-colors duration-200">
                                 <p className="text-[11px] tracking-[0.12em] uppercase text-[#29d9d5] font-medium mb-3">
                                     Call us
                                 </p>

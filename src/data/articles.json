@@ -1,0 +1,171 @@
+[
+  {
+    "id": "1",
+    "slug": "future-of-food-delivery-tanzania",
+    "title": "The Future of Food Delivery in Tanzania: How Technology Is Changing the Way We Eat",
+    "excerpt": "From boda-boda riders to real-time GPS tracking, Tanzania's food delivery landscape is undergoing a quiet revolution — and Sosika is at the center of it.",
+    "coverImage": "/blog/covers/future-food-delivery.jpg",
+    "category": "Industry Insights",
+    "tags": ["Tanzania", "Food Tech", "Delivery", "Innovation"],
+    "author": {
+      "name": "Sosika Editorial",
+      "avatar": "/blog/authors/sosika-editorial.jpg",
+      "role": "Sosika Team"
+    },
+    "publishedAt": "2025-04-01T08:00:00Z",
+    "readingTime": 6,
+    "featured": true,
+    "content": [
+      {
+        "type": "paragraph",
+        "text": "Tanzania's urban food culture has always been vibrant — from the smoky mishkaki stalls lining Kariakoo to the biriyani restaurants tucked inside Ilala's side streets. But for years, accessing this food required physically going out. That is changing fast."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "A Market Ready for Disruption"
+      },
+      {
+        "type": "paragraph",
+        "text": "With over 7 million people in Dar es Salaam alone and smartphone penetration growing at double digits annually, the conditions for a thriving food delivery economy are finally in place. Mobile money — led by M-Pesa and Airtel Money — has removed the friction of cash-on-delivery trust issues that historically plagued e-commerce in the region."
+      },
+      {
+        "type": "quote",
+        "text": "By 2027, online food delivery in Sub-Saharan Africa is projected to exceed $2.5 billion in gross merchandise value. Tanzania is positioned to capture a significant share of that growth.",
+        "attribution": "Africa Tech Digest, 2024"
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "What Makes Sosika Different"
+      },
+      {
+        "type": "paragraph",
+        "text": "Sosika was built specifically for the Tanzanian context — not adapted from a Western model. Our infrastructure accounts for address ambiguity (most streets lack formal names), variable connectivity, and a restaurant ecosystem that skews heavily toward small, independent operators rather than chains."
+      },
+      {
+        "type": "image",
+        "src": "/blog/inline/dar-es-salaam-street-food.jpg",
+        "alt": "Street food scene in Dar es Salaam",
+        "caption": "Dar es Salaam's food culture is diverse, hyper-local, and deeply tied to community."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "The Road Ahead"
+      },
+      {
+        "type": "paragraph",
+        "text": "Over the coming months, Sosika will expand beyond Dar es Salaam into Mwanza, Arusha, and Dodoma. Each city has its own food identity — and we intend to honor it rather than homogenize it. The goal is not to replace the local food experience, but to make it more accessible."
+      },
+      {
+        "type": "paragraph",
+        "text": "For restaurant partners, this means a broader customer base without the overhead of setting up delivery operations. For customers, it means the pilau from that one place in Kinondoni — the one you always crave at 8pm — delivered hot to your door."
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "slug": "how-to-list-your-restaurant-on-sosika",
+    "title": "How to List Your Restaurant on Sosika: A Step-by-Step Guide for Restaurant Owners",
+    "excerpt": "Getting your restaurant on Sosika takes less than 48 hours. Here's everything you need to know about onboarding, menu setup, and your first order.",
+    "coverImage": "/blog/covers/restaurant-onboarding.jpg",
+    "category": "For Restaurants",
+    "tags": ["Partners", "Onboarding", "Restaurants", "Guide"],
+    "author": {
+      "name": "Sosika Editorial",
+      "avatar": "/blog/authors/sosika-editorial.jpg",
+      "role": "Sosika Team"
+    },
+    "publishedAt": "2025-03-18T08:00:00Z",
+    "readingTime": 5,
+    "featured": false,
+    "content": [
+      {
+        "type": "paragraph",
+        "text": "If you run a restaurant, a home kitchen, or even a small food stall with a loyal customer base, listing on Sosika opens your business to thousands of potential customers across your city — without hiring delivery staff or building an app."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Step 1: Register as a Partner"
+      },
+      {
+        "type": "paragraph",
+        "text": "Visit sosika.co/partners and fill in your business details: restaurant name, location, contact person, and your preferred payment method (we support M-Pesa, Airtel Money, and direct bank transfer). Approval typically takes 24–48 hours."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Step 2: Upload Your Menu"
+      },
+      {
+        "type": "paragraph",
+        "text": "Our partner dashboard lets you build your menu from scratch or import from a spreadsheet. Include clear names, accurate descriptions, prices in TZS, and — critically — photos. Listings with high-quality food photos receive 3x more orders on average."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Step 3: Set Your Operating Hours and Radius"
+      },
+      {
+        "type": "paragraph",
+        "text": "You control when you're available and how far your delivery zone extends. Start conservative — a 5km radius is manageable for most kitchens. You can always expand once you're comfortable with volume."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "What Happens After You Go Live?"
+      },
+      {
+        "type": "paragraph",
+        "text": "Once approved and live, orders appear in your partner app in real time. You prepare the food; we handle the logistics. Our support team is available 7 days a week to help with any issues. Revenue is settled weekly."
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "slug": "sosika-launch-arusha",
+    "title": "Sosika Is Now Live in Arusha — Here's What That Means for You",
+    "excerpt": "After months of development, testing, and partnering with some of the city's most loved restaurants, Sosika officially launches in Arusha.",
+    "coverImage": "/blog/covers/arusha.jpg",
+    "category": "Company News",
+    "tags": ["Launch", "Arusha", "Announcement"],
+    "author": {
+      "name": "Sosika Editorial",
+      "avatar": "/blog/authors/sosika-editorial.jpg",
+      "role": "Sosika Team"
+    },
+    "publishedAt": "2025-03-01T10:00:00Z",
+    "readingTime": 4,
+    "featured": false,
+    "content": [
+      {
+        "type": "paragraph",
+        "text": "Today marks a milestone we've been working toward for a long time. Sosika is officially open for orders in Arusha."
+      },
+      {
+        "type": "paragraph",
+        "text": "We've spent the past several months quietly onboarding restaurant partners, stress-testing our logistics infrastructure, and refining the ordering experience based on feedback from early users. We're not perfect — but we're ready, and we're committed to getting better every single day."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "What's Available at Launch"
+      },
+      {
+        "type": "paragraph",
+        "text": "At launch, Sosika features 40+ restaurants across Arusha City Centre, Njiro, Themi, and Olorien. Categories include Tanzanian local food, Indian, Chinese, grills, juice bars, and pastries. We'll be adding new partners weekly."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Launch Offer"
+      },
+      {
+        "type": "paragraph",
+        "text": "To celebrate, we're offering free delivery on all orders for the first two weeks. No promo code needed — the discount is applied automatically at checkout."
+      }
+    ]
+  }
+]

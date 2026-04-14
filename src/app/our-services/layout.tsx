@@ -1,4 +1,5 @@
 import { Metadata } from "next"
+import Image from "next/image"
 
 export const metadata: Metadata = {
     title: "Our Services | Sosika Delivery Co.",
@@ -16,6 +17,7 @@ export default function OurServicesLayout({
 }: { children: React.ReactNode }) {
     return (
         <main>
+    
             {children}
         </main>
     )

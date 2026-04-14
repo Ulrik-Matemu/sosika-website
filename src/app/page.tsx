@@ -8,7 +8,7 @@ import FeaturedVendorsSection from './components/sections/vendor-section';
 import AwardsSection from './components/sections/awards';
 
 export default async function Home() {
- const vendors = await getFeaturedVendors(3);
+ const vendors = await getFeaturedVendors(6);
 
   return (
     <main className="min-h-screen" aria-label='Main Content'>

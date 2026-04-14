@@ -306,7 +306,7 @@ export default function ServicesPage() {
 
       {/* ── Stats bar ────────────────────────────────────────────────────── */}
       <section className="bg-[#29d9d5]">
-        <div className="max-w-6xl mx-auto px-6 md:px-24 py-10 grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="max-w-6xl relative z-10 mx-auto px-6 md:px-24 py-10 grid grid-cols-2 md:grid-cols-4 gap-8">
           {STATS.map((s) => (
             <div key={s.label} className="text-center">
               <p className="text-3xl md:text-4xl font-black text-[#1a1a1a]">{s.value}</p>
