@@ -6,10 +6,15 @@
     "excerpt": "From boda-boda riders to real-time GPS tracking, Tanzania's food delivery landscape is undergoing a quiet revolution — and Sosika is at the center of it.",
     "coverImage": "/blog/covers/future-food-delivery.jpg",
     "category": "Industry Insights",
-    "tags": ["Tanzania", "Food Tech", "Delivery", "Innovation"],
+    "tags": [
+      "Tanzania",
+      "Food Tech",
+      "Delivery",
+      "Innovation"
+    ],
     "author": {
       "name": "Sosika Editorial",
-      "avatar": "/blog/authors/sosika-editorial.jpg",
+      "avatar": "/icon-512x512.png",
       "role": "Sosika Team"
     },
     "publishedAt": "2025-04-01T08:00:00Z",
@@ -71,10 +76,15 @@
     "excerpt": "Getting your restaurant on Sosika takes less than 48 hours. Here's everything you need to know about onboarding, menu setup, and your first order.",
     "coverImage": "/blog/covers/restaurant-onboarding.jpg",
     "category": "For Restaurants",
-    "tags": ["Partners", "Onboarding", "Restaurants", "Guide"],
+    "tags": [
+      "Partners",
+      "Onboarding",
+      "Restaurants",
+      "Guide"
+    ],
     "author": {
       "name": "Sosika Editorial",
-      "avatar": "/blog/authors/sosika-editorial.jpg",
+      "avatar": "/icon-512x512.png",
       "role": "Sosika Team"
     },
     "publishedAt": "2025-03-18T08:00:00Z",
@@ -130,10 +140,14 @@
     "excerpt": "After months of development, testing, and partnering with some of the city's most loved restaurants, Sosika officially launches in Arusha.",
     "coverImage": "/blog/covers/arusha.jpg",
     "category": "Company News",
-    "tags": ["Launch", "Arusha", "Announcement"],
+    "tags": [
+      "Launch",
+      "Arusha",
+      "Announcement"
+    ],
     "author": {
       "name": "Sosika Editorial",
-      "avatar": "/blog/authors/sosika-editorial.jpg",
+      "avatar": "/icon-512x512.png",
       "role": "Sosika Team"
     },
     "publishedAt": "2025-03-01T10:00:00Z",
@@ -165,6 +179,158 @@
       {
         "type": "paragraph",
         "text": "To celebrate, we're offering free delivery on all orders for the first two weeks. No promo code needed — the discount is applied automatically at checkout."
+      }
+    ]
+  },
+  {
+    "id": "4",
+    "slug": "most-popular-fast-foods-in-arusha",
+    "title": "Most Popular Fast Foods in Arusha: What People Actually Reach For",
+    "excerpt": "Arusha’s fast-food favorites are a blend of street-stall classics and modern quick eats. Here are the dishes you’ll see (and crave) most—plus how to order them well.",
+    "coverImage": "/blog/covers/arusha-fast-foods.webp",
+    "category": "Food Culture",
+    "tags": [
+      "Arusha",
+      "Tanzania",
+      "Street Food",
+      "Fast Food",
+      "Chipsi Mayai",
+      "Mishkaki",
+      "Zanzibar Mix"
+    ],
+    "author": {
+      "name": "Sosika Editorial",
+      "avatar": "/icon-512x512.png",
+      "role": "Sosika Team"
+    },
+    "publishedAt": "2025-12-18T09:00:00Z",
+    "readingTime": 4,
+    "featured": false,
+    "content": [
+      {
+        "type": "paragraph",
+        "text": "Arusha is a city that moves early and eats often. Commuters, students, market shoppers, and evening crowds all rely on quick foods that can be cooked fast, eaten hot, and shared easily. In Arusha, “fast food” isn’t only burgers and pizza—it’s also street grills and small stalls serving familiar Tanzanian bites like chipsi mayai, grilled meats, and Zanzibar Mix. "
+      },
+      {
+        "type": "paragraph",
+        "text": "Here, “most popular” means foods that show up again and again in Arusha-focused street-food guides and in Tanzania-wide street-food lists—dishes that are widely available, quick to prepare, and commonly chosen when people want something satisfying without a long wait. Rankings and lists should be read as signals (TasteAtlas itself notes its street-food lists are based on audience ratings and aren’t a final global conclusion), but when multiple sources repeat the same foods, a clear pattern emerges. "
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Chipsi mayai: Arusha’s anytime classic"
+      },
+      {
+        "type": "paragraph",
+        "text": "Chipsi mayai (sometimes called zege) is exactly what it sounds like: French fries cooked with beaten eggs into a hearty omelette. It’s widely described as one of Tanzania’s most popular street foods and is found across the country, including Arusha. You’ll commonly see it served with kachumbari (a fresh tomato-and-onion salad) and/or pili-pili chili sauce, which cuts through the richness. "
+      },
+      {
+        "type": "paragraph",
+        "text": "Part of its staying power is flexibility. Chipsi mayai can be kept simple, or enriched with onions, peppers, and other small add-ins depending on the cook and the stall. For a better eating experience (especially if you’re ordering delivery), ask for kachumbari and chili on the side so the omelette stays warm while the salad stays crisp. "
+      },
+      {
+        "type": "image",
+        "src": "/blog/inline/chipsi-mayai.png",
+        "alt": "Plate of chipsi mayai served with kachumbari",
+        "caption": "Chipsi mayai is a fast, filling favorite—often finished with kachumbari and chili. "
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Mishkaki and nyama choma: fast food at the grill"
+      },
+      {
+        "type": "paragraph",
+        "text": "If chipsi mayai is Arusha’s comfort classic, then mishkaki and nyama choma are the city’s grill-time essentials. Mshikaki (often spelled mishkaki) refers to skewered pieces of marinated meat—commonly beef or goat—slow-cooked over hot coals and sold hot from the stall. Nyama choma, by contrast, is grilled meat (often goat or beef) roasted over open heat, typically kept simple and served in chopped pieces for sharing. "
+      },
+      {
+        "type": "paragraph",
+        "text": "Arusha guides regularly point to places where grilled meat is a main event. Some mention hubs like Kwa Morombo Market for nyama choma, while city-center stalls are often described as reliable places to grab staples like chipsi mayai and mishkaki quickly. "
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Chapati, sambusa, and quick snacks you can mix and match"
+      },
+      {
+        "type": "paragraph",
+        "text": "Chapati is a familiar fast-food “tool” across Tanzania: a flatbread introduced through trade and migration and now widely eaten, including as a wrap. In everyday street-food life, chapati often shows up with beans (maharage) or eggs—an easy way to build a filling meal from simple ingredients. "
+      },
+      {
+        "type": "paragraph",
+        "text": "Alongside chapati, Arusha’s grab-and-go bites often include sambusa (samosas) and other fried snacks. Tanzania-focused street-food guides describe “samoosas” as common options, and broader street-food lists highlight samosas as a well-loved fast food in Tanzania. "
+      },
+      {
+        "type": "paragraph",
+        "text": "For starchy add-ons, cassava (muhogo) shows up as a common snack across Tanzania—and it’s also named directly as a local street-food tasting in Arusha community walking tours. "
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Zanzibar Mix: the bowl that eats like a meal"
+      },
+      {
+        "type": "paragraph",
+        "text": "Zanzibar Mix (often called urojo) is the kind of “fast food” that arrives in a bowl but feels like a full meal. Descriptions of urojo emphasize a tangy, spiced broth that may include flavors like mango and turmeric, paired with boiled potatoes and fried elements (bhajji-style fritters), often finished with kachumbari, chili, and sometimes small pieces of meat. Although it’s strongly associated with Zanzibar and the Tanzanian coast, Arusha street-food write-ups also list Zanzibar Mix among popular treats you can find in town. "
+      },
+      {
+        "type": "callout",
+        "variant": "tip",
+        "text": "New to Zanzibar Mix? Start mild and add chili gradually. The broth is meant to taste bright (and a little sour) as well as spicy."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Sweet snacks for tea time: vitumbua and mandazi"
+      },
+      {
+        "type": "paragraph",
+        "text": "Not every fast food in Arusha is savory. Vitumbua—small, sweet rice cakes—are repeatedly listed in Arusha street-food guides and Tanzania-wide street-food roundups. Mandazi, a Swahili-coast fried bread, is popular because it’s convenient, portable, and pairs naturally with tea; it’s also frequently described as a breakfast or snack food. "
+      },
+      {
+        "type": "image",
+        "src": "/blog/inline/vitumbua-mandazi.png",
+        "alt": "Vitumbua and mandazi served with tea",
+        "caption": "Vitumbua and mandazi are the kind of snacks that turn “just tea” into a full break. "
+      },
+      {
+        "type": "divider"
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Pizza, burgers, and shawarma: Arusha’s modern fast-food lane"
+      },
+      {
+        "type": "paragraph",
+        "text": "Arusha’s fast-food identity isn’t only street-stall classics. Restaurant listings and review sites keep dedicated categories for pizza and shawarma in Arusha—an indicator that these options are commonly searched and widely available. Shawarma itself is typically thin-sliced meat roasted on a vertical spit and served hot in a wrap, and it has become a familiar quick meal in many places beyond its Middle Eastern origins. "
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "How to choose and order well"
+      },
+      {
+        "type": "paragraph",
+        "text": "Fast food should still feel safe and fresh. Street-food advice repeats across guides: choose busy vendors, prefer food cooked to order, and pay attention to cleanliness. The World Health Organization’s “Five Keys to Safer Food” offers a practical checklist: keep clean, separate raw and cooked, cook thoroughly, keep food at safe temperatures, and use safe water and raw materials. Tanzania’s Bureau of Standards has also emphasized consumers’ responsibility to check food quality and the cleanliness of food-selling environments. "
+      },
+      {
+        "type": "list",
+        "ordered": false,
+        "items": [
+          "Look for turnover: a steady queue often means fresher food. ",
+          "Prefer food that’s cooked hot to order (or just off the grill). ",
+          "For packaged items, check labels and expiry dates; for cooked food, scan the environment for basic cleanliness. "
+        ]
+      },
+      {
+        "type": "quote",
+        "text": "Consumers have the first obligation to determine and check the quality and safety of food to avoid consuming contaminated food.",
+        "attribution": "Tanzania Bureau of Standards (TBS), 2022. "
+      },
+      {
+        "type": "paragraph",
+        "text": "Arusha’s most popular fast foods are popular for a simple reason: they match the city’s pace. Whether you’re grabbing a quick bite near a market, meeting friends for nyama choma, or ordering a late shawarma, these dishes make it easy to eat well—fast, affordable, and with flavors that feel unmistakably Tanzanian. "
       }
     ]
   }

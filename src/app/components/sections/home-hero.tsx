@@ -7,7 +7,7 @@ import { trackEvent } from '@/lib/posthog';
 
 const Hero = () => {
     return (
-        <section className="relative w-full md:mt-14 min-h-screen overflow-hidden flex items-center justify-center">
+        <section className="relative mt-20 w-full md:mt-14 min-h-screen overflow-hidden flex items-center justify-center">
 
             {/* Background blobs using the wrapper */}
             <div
