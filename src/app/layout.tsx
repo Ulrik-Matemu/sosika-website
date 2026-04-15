@@ -3,6 +3,7 @@ import './globals.css';
 import Navbar from './components/shared/header-nav';
 import Footer from './components/shared/footer';
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import { PostHogProvider } from './provider';
 import PageViewTracker from './components/analytics/pageview-tracker';
 
@@ -33,6 +34,8 @@ export const metadata = {
 };
 
 
+
+
 export default function RootLayout({
   children,
 }: {
@@ -52,6 +55,7 @@ export default function RootLayout({
         </PostHogProvider>
       </body>
       <Analytics />
+      <SpeedInsights />
     </html>
   );
 }

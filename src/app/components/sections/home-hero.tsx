@@ -29,7 +29,7 @@ const Hero = () => {
   
                     >
                         <h1 className="font-black leading-[1.08] mb-6 text-[#FFFFF0] text-5xl sm:text-5xl lg:text-7xl text-center md:text-left">
-                            The #1 Food Delivery Service <br />
+                            Fastest Food Delivery Service <br />
                             <span
                                 style={{ color: '#29d9d5', display: 'inline-block' }}
        

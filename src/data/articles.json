@@ -333,5 +333,245 @@
         "text": "Arusha’s most popular fast foods are popular for a simple reason: they match the city’s pace. Whether you’re grabbing a quick bite near a market, meeting friends for nyama choma, or ordering a late shawarma, these dishes make it easy to eat well—fast, affordable, and with flavors that feel unmistakably Tanzanian. "
       }
     ]
-  }
-]
+  },
+    {
+      "id": "5",
+      "slug": "top-5-hidden-gems-for-lunch-in-arusha",
+      "title": "Top 5 Hidden Gems for Lunch in Arusha ",
+      "excerpt": "A grounded lunch guide: five under-the-radar spots worth your midday break in Arusha and beyond.",
+      "coverImage": "/blog/covers/arusha-hidden-lunch-gems.avif",
+      "category": "Food Culture",
+      "tags": [
+        "Arusha",
+        "Lunch",
+        "Hidden Gems",
+        "Local Food",
+        "Tanzania"
+      ],
+      "author": {
+        "name": "Sosika Editorial",
+        "avatar": "/icon-512x512.png",
+        "role": "Sosika Team"
+      },
+      "publishedAt": "2026-02-20T10:00:00Z",
+      "readingTime": 5,
+      "featured": true,
+      "content": [
+        {
+          "type": "paragraph",
+          "text": "Lunch in Arusha can be a small daily adventure: a city-park grill that feels like a backyard, a café you nearly walk past, or a bakery where the bread is the main character. At Sosika, a food delivery startup in Tanzania, we keep a running list of places people actually return to when it’s midday and they’re hungry—so this guide focuses on five spots that are consistently described as reliable for lunch, yet still feel a bit under-the-radar."
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "text": "Want to eat without leaving your desk? Check delivery and pickup details on <a href=\"/our-services\">our services</a>."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "How we picked these spots"
+        },
+        {
+          "type": "paragraph",
+          "text": "We leaned on recurring patterns in travel guides and customer reviews: places people describe as good value, easy to return to, and practical for a real lunch break (not only for “special occasion” dining). Hours and menus can change, so confirm on the day you go."
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Uzunguni City Park: Local classics in the shade"
+        },
+        {
+          "type": "paragraph",
+          "text": "Uzunguni City Park is often recommended for “real, local Tanzanian cuisine” in a relaxed open-air setting. One dish that gets repeated attention is the banana-and-beef stew, alongside fresh fruit juices and an overall sense of value for money."
+        },
+        {
+          "type": "quote",
+          "text": "“Their banana and beef stew definitely needs to be tried.”",
+          "attribution": "Traveler review, 2022"
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "text": "If you’re curious about the banana-and-meat tradition in this part of the country, look up mtori—an iconic Northern Tanzanian banana stew."
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Cape2Cairo: Fast, simple, and genuinely affordable"
+        },
+        {
+          "type": "paragraph",
+          "text": "Cape2Cairo is described as a good place to grab a quick meal, serving a wide range of Swahili food at an affordable price point. Reviews also mention basics like chapati and mandazi—simple, filling, and naturally portable on days you’re eating on the move."
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "Chapati with a hearty curry or stew (ask what’s freshest today).",
+            "Mandazi on the side if you want something portable and familiar."
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Bamboo: A calm corner near the city center"
+        },
+        {
+          "type": "paragraph",
+          "text": "Along Boma Road—close to the area—Bamboo is one of those places that’s easy to overlook until you need it. Travel notes highlight its Boma Road location and suggest it’s typically open most days, with extra Sunday morning hours."
+        },
+        {
+          "type": "paragraph",
+          "text": "Reviewers describe it as relaxed and practical, with comfort dishes (including ugali and meat options) and coffee. A few also mention Wi‑Fi—useful if lunch turns into a laptop session."
+        },
+        {
+          "type": "image",
+          "src": "/blog/inline/boma-road-lunch-stop.jpg",
+          "alt": "A quiet lunch table by a window in central Arusha",
+          "caption": "Boma Road has busy moments, but a few cafés still feel calm once you sit down."
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Kitamu Gourmet Basket: The sandwich-and-salad upgrade"
+        },
+        {
+          "type": "paragraph",
+          "text": "Kitamu Gourmet Basket is a strong pick when you want a modern café lunch that won’t slow you down. Descriptions highlight sourdough sandwiches, bagels, “healthy salad,” and kombucha, and the venue’s profile points to breads, pastries, and coffee with all-day service."
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "Sourdough sandwich or a bagel as your base; add a side salad if you want extra volume.",
+            "If you’re taking it away, this is one of the easiest meals on the list to carry and eat later."
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Andrew's: Proper nyama choma with space to breathe"
+        },
+        {
+          "type": "paragraph",
+          "text": "Andrew’s is frequently described as a go-to for nyama choma, with grilled chicken and goat mentioned often, plus patio seating and garden-style corners that suit groups or a quiet lunch. Reviews also note it can work well for takeaway—helpful when you don’t have time to sit."
+        },
+        {
+          "type": "quote",
+          "text": "“Andrews is THE place for any type of choma.”",
+          "attribution": "Traveler review, 2020"
+        },
+        {
+          "type": "paragraph",
+          "text": "If you’re navigating by driver instructions, one local post places Andrew’s on Boma Road. Also plan your time: some reviewers mention that service can be slow when it’s busy."
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "text": "New to the term? “Nyama choma” refers to barbecued/grilled meat in Kiswahili and is widely eaten across Tanzania and the region."
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Gran Melia Rooftop: Elevated views and a light lunch"
+        },
+        {
+          "type": "paragraph",
+          "text": "The Gran Melia rooftop offers a light, slightly more polished lunch option—think salads, grilled fish, and shareable tapas with a view over the city. It’s a good choice when you want a relaxed midday break with a comfortable atmosphere."
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "text": "Rooftop spots can be breezy; bring a light layer and check opening hours, which may vary by season or hotel events."
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Sosika partner vendors to try"
+        },
+        {
+          "type": "paragraph",
+          "text": "Alongside independent cafés, several Sosika partner vendors consistently score well for quick, reliable lunch options. These are handy for delivery or quick pickup."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "King's Food"
+        },
+        {
+          "type": "paragraph",
+          "text": "King’s Food is known for generous portions of local stews and grilled items at an affordable price—popular for takeaway and filling lunches."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The Sip Corner"
+        },
+        {
+          "type": "paragraph",
+          "text": "The Sip Corner focuses on light lunch fare and drinks: sandwiches, salads, and coffee—ideal for a short break or a working lunch."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The Location"
+        },
+        {
+          "type": "paragraph",
+          "text": "The Location is a practical choice for fast service and consistent standards—good for when you need something familiar and dependable."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Kabila Junction"
+        },
+        {
+          "type": "paragraph",
+          "text": "Kabila Junction offers hearty plates—often with local grilled options and sides—suited to groups or takeaway meals that travel well."
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Making lunch easier on busy days"
+        },
+        {
+          "type": "paragraph",
+          "text": "The best lunch spot is often the one you can return to without stress. If leaving isn’t practical today, delivery or pickup can turn these places into regular habits instead of “one-day” discoveries—details are on <a href='/our-services'>our services</a>."
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "text": "Own a lunch spot in Arusha and want to reach more customers? Apply to partner through <a href='/join-vendor'>/join-vendor</a>."
+        },
+        {
+          "type": "paragraph",
+          "text": "Wherever you eat, confirm hours before you go, ask what’s fresh, and be kind to the people feeding you. That’s how hidden gems stay open long enough to become your regular lunch."
+        }
+      ]
+    },
+    { "id": "6", "slug": "sustainability-in-delivery-tanzania-reducing-our-carbon-footprint", "title": "Sustainability in Delivery: How We’re Reducing Our Carbon Footprint", "excerpt": "Delivery is convenient, but it comes with emissions and waste. Here’s the practical roadmap Sosika is building—step by step—to reduce unnecessary trips, packaging, and pollution as we grow.", "coverImage": "/blog/covers/sustainability-delivery-tanzania.jpg", "category": "Company News", "tags": ["sustainability", "delivery", "carbon-footprint", "tanzania", "packaging"], "author": { "name": "Sosika Editorial", "avatar": "/icon-512x512.png", "role": "Sosika Team" }, "publishedAt": "2025-11-18T09:00:00Z", "readingTime": 4, "featured": false, "content": [ { "type": "heading", "level": 1, "text": "Sustainability in Delivery: How We’re Reducing Our Carbon Footprint" }, { "type": "paragraph", "text": "Food delivery is built for convenience—but the way it’s done matters. Every extra kilometer, every “couldn’t find you” redelivery, and every unnecessary plastic item adds up. Sosika is still an early, growing startup, which is exactly why we’re taking sustainability seriously now: the systems we design today will shape our impact as we scale." }, { "type": "paragraph", "text": "We’re not going to pretend we can eliminate emissions overnight. What we can do is make practical choices that steadily reduce waste—wasted fuel, wasted packaging, and wasted food—and report honestly on what works and what doesn’t." }, { "type": "heading", "level": 2, "text": "Why delivery emissions matter" }, { "type": "paragraph", "text": "Transport is one of the world’s major sources of greenhouse gas emissions, and most of those emissions come from vehicles on the road. That doesn’t mean delivery is “bad”—it means the details of delivery (distance, vehicle type, routing, and how many trips we create) directly affect emissions. Climate assessments estimate transport at roughly 15% of total global GHG emissions in 2019, with road transport making up the largest share within transport. " }, { "type": "paragraph", "text": "Food delivery adds a specific challenge: many short trips, often at peak times. Research on motorcycle-based delivery in a large city found that frequent short journeys can significantly contribute to congestion and CO2 emissions—especially when delivery demand creates additional trips that wouldn’t have happened otherwise. " }, { "type": "heading", "level": 2, "text": "Where the footprint comes from" }, { "type": "paragraph", "text": "When we talk about a delivery order’s footprint, the rider is only one piece. Meals have upstream emissions (how ingredients are produced and transported), plus packaging and waste, plus the final trip. A life‑cycle study of online food delivery found that food production can account for more than 70% of total order emissions in its scenarios—so portioning, avoiding food waste, and supporting efficient restaurant operations matter alongside delivery itself. " }, { "type": "paragraph", "text": "Packaging is the other big, visible piece. A detailed life‑cycle assessment of online food‑delivery packaging estimated packaging-related emissions of roughly 0.15–0.29 kg CO2e per order (depending on packaging type), with raw material production contributing at least half. And globally, plastic waste leakage into aquatic ecosystems is still measured in the tens of millions of tonnes per year—one reason reducing single-use items is more than a “nice to have.” " }, { "type": "heading", "level": 2, "text": "What we can do now" }, { "type": "paragraph", "text": "Before we invest in new vehicles or infrastructure, the fastest reductions usually come from doing fewer unnecessary kilometers. Our near-term focus is simple: combine trips when possible, reduce detours, and prevent failed drop-offs. That starts with product design—clear pickup and drop‑off instructions, accurate locations, and smart grouping of orders during peak campus hours. " }, { "type": "paragraph", "text": "Routing also matters. Better route planning can reduce distance and idle time, and rider habits matter too. Peer‑reviewed studies of eco‑driving training show average fuel‑consumption reductions on the order of a few percent (for example, about 4.6% in city driving in one real-world evaluation, and up to about 6.3% on average in another). Those gains compound across many deliveries. " }, { "type": "paragraph", "text": "Because we’re early, measurement is part of the plan—not an afterthought. We’re building toward tracking basics like average delivery distance per order, batching rate, and re-delivery rate, so we can focus on actions that actually reduce trips rather than just shifting them around. " }, { "type": "quote", "text": "Sustainability isn’t a badge—it’s a sequence of trade-offs, measurement, and continuous iteration." }, { "type": "heading", "level": 2, "text": "Our medium-term route" }, { "type": "paragraph", "text": "Looking a bit further ahead, cleaner delivery modes matter. Two‑wheel electrification is growing in our region, and electric motorcycles and e-bikes are increasingly practical for dense areas and short routes. The climate benefit of electrification depends on the electricity mix, and recent national reporting shows Tanzania’s main-grid generation has been dominated by natural gas and hydropower, with hydropower’s share increasing in the latest reporting period. " }, { "type": "paragraph", "text": "We’re also exploring delivery models that keep the “long” trip short. One established approach is using local hubs and completing final drop-offs with lighter vehicles. In an urban case study, a micro-hub plus cargo-bike model reduced CO2 emissions by around 40% compared with a conventional van-only approach. Broader research on urban freight also finds that higher load factors and smaller (often electric) vehicles can cut well-to-wheel CO2 emissions substantially while easing local pollution. " }, { "type": "heading", "level": 2, "text": "Packaging with less waste" }, { "type": "paragraph", "text": "Packaging is complicated because it touches food safety and restaurant realities. Our approach is to start with “less and better”: right-sized containers, fewer unnecessary layers, and an easy opt-out for extras (like cutlery) when you don’t need them. Packaging research points to raw-material production as a major driver of packaging emissions, which is why reducing unnecessary items matters. " }, { "type": "paragraph", "text": "In the medium term, we want to test reuse where it truly fits—like durable rider bags and, in controlled settings, returnable containers. Life‑cycle guidance from environmental assessments suggests reusable or returnable options can be better when they’re reused many times and reverse logistics (returns and washing) are efficient; context matters, so we’d pilot carefully before scaling. " }, { "type": "heading", "level": 2, "text": "How we’ll track progress" }, { "type": "paragraph", "text": "Finally, we think trust requires transparency. As Sosika grows, our goal is to publish simple, understandable updates on what we’re improving (and what’s still hard). Evidence from freight decarbonisation work consistently points to better data collection as a foundation for smart policy and operational decisions—and the same logic applies to responsible delivery platforms. " } ] }
+  ]
