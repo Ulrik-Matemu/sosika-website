@@ -12,6 +12,7 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
   const lastScrollY = useRef(0);
+  const websiteDistinctId = posthog.get_distinct_id();
 
   const isBlogArticlePage = /^\/blog\/[^/]+\/?$/.test(pathname);
 
