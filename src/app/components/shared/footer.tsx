@@ -42,7 +42,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="relative text-gray-400 overflow-hidden bg-black">
+    <footer className="relative text-gray-400 overflow-hidden bg-black" aria-label='Primary Footer'>
 
       {/* ── Subtle food-themed SVG texture overlay ── */}
       <div

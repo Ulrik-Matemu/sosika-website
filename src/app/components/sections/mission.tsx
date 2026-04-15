@@ -33,15 +33,15 @@ export default function MissionSection({
 
           {/* Right Content */}
           <div className="max-w-[520px] lg:ml-auto">
-            <h2 className="text-4xl font-black leading-[1.1] tracking-[-0.03em] text-[#333333] sm:text-5xl lg:text-[4rem]">
+            <h2 className="text-4xl font-black leading-[1.1] tracking-[-0.03em] text-[#FFFFF0] sm:text-5xl lg:text-[4rem]">
               {title}
             </h2>
 
-            <p className="mt-8 text-lg leading-9 text-[#7a7a7a]">
+            <p className="mt-8 text-lg leading-9 text-slate-300">
               {description1}
             </p>
 
-            <p className="mt-8 text-lg leading-9 text-[#7a7a7a]">
+            <p className="mt-8 text-lg leading-9 text-slate-300">
               {description2}
             </p>
           </div>

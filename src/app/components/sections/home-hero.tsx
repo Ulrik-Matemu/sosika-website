@@ -9,7 +9,7 @@ import posthog from '@/lib/posthog';
 const Hero = () => {
     const websiteDistinctId = posthog.get_distinct_id();
     return (
-        <section className="relative w-full md:mt-14 min-h-screen overflow-hidden flex items-center justify-center">
+        <section className="relative mt-20 w-full md:mt-14 min-h-screen overflow-hidden flex items-center justify-center">
 
             {/* Background blobs using the wrapper */}
             <div
@@ -30,13 +30,13 @@ const Hero = () => {
                         className="flex flex-col justify-center"
 
                     >
-                        <h1 className="font-black leading-[1.08] mb-6 text-[#1a1a1a] text-5xl sm:text-5xl lg:text-7xl text-center md:text-left">
-                            The #1 Food Delivery Service <br />
+                        <h1 className="font-black leading-[1.08] mb-6 text-[#FFFFF0] text-5xl sm:text-5xl lg:text-7xl text-center md:text-left">
+                            Fastest Food Delivery Service <br />
                             <span
                                 style={{ color: '#29d9d5', display: 'inline-block' }}
 
                             >
-                                In Tanzania<span className='text-[#1a1a1a]'>.</span>
+                                In Tanzania<span className='text-[#FFFFF0]'>.</span>
                             </span>
                         </h1>
 

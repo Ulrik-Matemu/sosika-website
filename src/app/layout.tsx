@@ -3,6 +3,7 @@ import './globals.css';
 import Navbar from './components/shared/header-nav';
 import Footer from './components/shared/footer';
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import { PostHogProvider } from './provider';
 import PageViewTracker from './components/analytics/pageview-tracker';
 
@@ -14,7 +15,7 @@ const titillium = Titillium_Web({
 
 export const metadata = {
   title: 'Sosika Delivery Co.',
-  description: 'The Number 1 and ultimate food delivery experience in Tanzania. Official Website Launching soon!',
+  description: 'Explore local food in Tanzania with Sosika—fast delivery of meals, drinks, and snacks from trusted nearby vendors.',
   openGraph: {
     title: 'Sosika Delivery Co.',
     description: 'Food delivery, refined.',
@@ -33,6 +34,8 @@ export const metadata = {
 };
 
 
+
+
 export default function RootLayout({
   children,
 }: {
@@ -42,7 +45,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${titillium.variable} font-sans antialiased`}
         style={{
-          background: 'linear-gradient(135deg, #f0fdfc 0%, #e6fafa 40%, #ccf5f4 70%, #b8f0ef 100%)',
+          background: 'linear-gradient(135deg, #0f172a 0%, #062f3a 40%, #033a41 70%, #0b4f54 100%)',
         }}>
         <PostHogProvider>
           <PageViewTracker />
@@ -52,6 +55,7 @@ export default function RootLayout({
         </PostHogProvider>
       </body>
       <Analytics />
+      <SpeedInsights />
     </html>
   );
 }

@@ -99,7 +99,7 @@ export default function AwardsSection() {
     <section className="bg-[#f7f6f3]">
       {/* Section header */}
       <div className="text-center px-8 pt-24 pb-16">
-        <p className="text-[11px] tracking-[0.2em] uppercase text-[#29d9d5] font-medium mb-4">
+        <p className="text-[11px] tracking-[0.2em] uppercase text-[#0f172a] font-medium mb-4">
           Internationally Prestigious
         </p>
         <h2 className="text-6xl leading-tight tracking-wide font-black text-[#0e0e0e]">
@@ -172,13 +172,13 @@ export default function AwardsSection() {
                 transition: 'opacity 0.6s ease, transform 0.6s ease',
               }}
             >
-              <p className="text-[11px] tracking-[0.2em] uppercase text-[#29d9d5] font-medium mb-5">
+              <p className="text-[11px] tracking-[0.2em] uppercase text-[#0f172a] font-medium mb-5">
                 {panel.num}
               </p>
               <h3 className="text-[36px] leading-tight text-[#0e0e0e] font-bold mb-5">
                 {panel.heading}
               </h3>
-              <p className="text-base leading-relaxed text-[#888] font-light max-w-[340px] mb-8">
+              <p className="text-base leading-relaxed text-gray-800 font-light max-w-[340px] mb-8">
                 {panel.body}
               </p>
               <span className="inline-flex items-center gap-2 text-[12px] tracking-widest uppercase font-medium text-[#0e0e0e] px-4 py-2.5 border border-gray-300 rounded-full w-fit">

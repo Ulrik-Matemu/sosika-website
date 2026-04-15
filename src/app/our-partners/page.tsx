@@ -39,6 +39,13 @@ const VENDOR_BENEFITS = [
   },
 ];
 
+const STATS = [
+  { value: '100+', label: 'Merchant partners' },
+  { value: '1200+', label: 'Delivery riders' },
+  { value: '50k+', label: 'Happy customers' },
+  { value: '800k', label: 'Monthly Earnings' },
+];
+
 const RIDER_BENEFITS = [
   {
     stat: 'TZS 800k+',
@@ -218,13 +225,13 @@ function StepItem({ step, title, body, last }: { step: string; title: string; bo
     <div className="flex gap-5">
       <div className="flex flex-col items-center">
         <div className="w-10 h-10 rounded-full border-2 border-[#29d9d5] flex items-center justify-center flex-shrink-0">
-          <span className="text-xs font-black text-[#29d9d5]">{step}</span>
+          <span className="text-xs font-black text-slate-300">{step}</span>
         </div>
         {!last && <div className="w-px flex-1 bg-[#29d9d5]/15 my-2" />}
       </div>
       <div className={`pb-8 ${last ? '' : ''}`}>
-        <p className="font-black text-[#1a1a1a] text-base mb-1">{title}</p>
-        <p className="text-sm text-gray-500 leading-relaxed">{body}</p>
+        <p className="font-black text-slate-300 text-base mb-1">{title}</p>
+        <p className="text-sm text-slate-400 leading-relaxed">{body}</p>
       </div>
     </div>
   );
@@ -604,10 +611,10 @@ function OtherPartnershipForm() {
 
 export default function PartnersPage() {
   return (
-    <main className="w-full bg-[#f8fafa] text-[#1a1a1a] overflow-x-hidden">
+    <main className="w-full bg-transparent text-[#1a1a1a] overflow-x-hidden">
 
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
-      <section className="relative md:mt-18 min-h-[78vh] flex items-center justify-center overflow-hidden bg-[#1a1a1a]">
+      <section className="relative min-h-[78vh] flex items-center justify-center overflow-hidden bg-transparent">
         <div
           aria-hidden="true"
           className="absolute -top-32 -right-32 w-[560px] h-[560px] rounded-full pointer-events-none"
@@ -629,34 +636,32 @@ export default function PartnersPage() {
         />
 
         <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-24 w-full py-28">
-          <div className="max-w-3xl">
-            <span className="inline-block text-xs font-bold tracking-[0.22em] uppercase text-[#29d9d5] bg-[#29d9d5]/10 px-4 py-1.5 rounded-full mb-8">
-              Partner with Sosika
-            </span>
-            <h1 className="font-black text-white text-5xl sm:text-6xl lg:text-[82px] leading-[1.04] mb-6">
+          <div className=" md:mt-12">
+           
+            <h1 className="font-black text-white text-center md:text-right text-5xl sm:text-6xl lg:text-[82px] leading-[1.04] mb-6">
               Grow together.<br />
               <span style={{ color: '#29d9d5' }}>Win together.</span>
             </h1>
-            <p className="text-gray-400 text-lg leading-relaxed max-w-xl mb-10">
+            <p className="text-slate-300 text-lg text-center md:text-right leading-relaxed md:pl-60 mb-10">
               Sosika connects vendors, riders, and businesses into Tanzania&apos;s fastest-growing
               delivery ecosystem. Whether you cook, ride, or build — there&apos;s a place for you here.
             </p>
-            {/* scroll indicator */}
-            <div className="flex items-center gap-3 text-gray-600 text-xs uppercase tracking-widest">
-              <div className="w-8 h-px bg-gray-600" />
-              Scroll to explore
-            </div>
+           
           </div>
         </div>
 
         {/* floating chips */}
-        <div className="absolute right-10 top-1/2 -translate-y-1/2 hidden lg:flex flex-col gap-3">
-          {['100+ Vendors', '1,200+ Riders', '50k+ Customers'].map((chip) => (
-            <div
-              key={chip}
-              className="bg-white/5 border border-white/10 text-white/70 text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full"
-            >
-              {chip}
+       
+      </section>
+
+       <section className="bg-[#29d9d5]">
+        <div className="max-w-6xl mx-auto px-6 md:px-24 py-10 grid grid-cols-2 md:grid-cols-4 gap-8">
+          {STATS.map((s) => (
+            <div key={s.label} className="text-center">
+              <p className="text-3xl md:text-4xl font-black text-[#1a1a1a]">{s.value}</p>
+              <p className="text-[#1a1a1a]/55 text-xs font-semibold uppercase tracking-widest mt-1">
+                {s.label}
+              </p>
             </div>
           ))}
         </div>
@@ -666,7 +671,7 @@ export default function PartnersPage() {
       <section className="max-w-6xl mx-auto px-6 md:px-24 py-24">
         <div className="text-center mb-16">
           <p className="text-xs font-bold tracking-[0.2em] uppercase text-[#29d9d5] mb-3">Two ways to partner</p>
-          <h2 className="text-4xl md:text-5xl font-black text-[#1a1a1a] leading-tight">
+          <h2 className="text-4xl md:text-5xl font-black text-[#FFFFF0] leading-tight">
             Which one are you?
           </h2>
         </div>
@@ -676,12 +681,7 @@ export default function PartnersPage() {
           {/* Vendor card */}
           <div className="group relative bg-[#1a1a1a] rounded-3xl p-10 overflow-hidden cursor-default"
             style={{ boxShadow: '0 4px 32px rgba(0,0,0,0.10)' }}>
-            <div
-              aria-hidden="true"
-              className="absolute -top-16 -right-16 w-56 h-56 rounded-full pointer-events-none opacity-60"
-              style={{ background: 'radial-gradient(circle, rgba(41,217,213,0.18) 0%, transparent 70%)' }}
-            />
-            <div className="relative z-10">
+                        <div className="relative z-10">
               <div className="w-14 h-14 rounded-2xl bg-[#29d9d5]/10 border border-[#29d9d5]/20 flex items-center justify-center mb-7">
                 <StoreIcon />
               </div>
@@ -844,7 +844,7 @@ export default function PartnersPage() {
       <section className="max-w-6xl mx-auto px-6 md:px-24 py-24">
         <div className="text-center mb-16">
           <p className="text-xs font-bold tracking-[0.2em] uppercase text-[#29d9d5] mb-3">Simple process</p>
-          <h2 className="text-4xl md:text-5xl font-black text-[#1a1a1a] leading-tight">
+          <h2 className="text-4xl md:text-5xl font-black text-[#FFFFF0] leading-tight">
             Up and running<br />in 4 steps.
           </h2>
         </div>
@@ -856,7 +856,7 @@ export default function PartnersPage() {
               <div className="w-10 h-10 rounded-2xl bg-[#29d9d5]/10 flex items-center justify-center">
                 <StoreIcon />
               </div>
-              <span className="font-black text-[#1a1a1a] text-lg">For Vendors</span>
+              <span className="font-black text-[#FFFFF0] text-lg">For Vendors</span>
             </div>
             {HOW_IT_WORKS_VENDOR.map((s, i) => (
               <StepItem key={s.step} {...s} last={i === HOW_IT_WORKS_VENDOR.length - 1} />
@@ -869,7 +869,7 @@ export default function PartnersPage() {
               <div className="w-10 h-10 rounded-2xl bg-[#29d9d5]/10 flex items-center justify-center">
                 <RiderIcon />
               </div>
-              <span className="font-black text-[#1a1a1a] text-lg">For Riders</span>
+              <span className="font-black text-[#FFFFF0] text-lg">For Riders</span>
             </div>
             {HOW_IT_WORKS_RIDER.map((s, i) => (
               <StepItem key={s.step} {...s} last={i === HOW_IT_WORKS_RIDER.length - 1} />
@@ -919,10 +919,10 @@ export default function PartnersPage() {
             <p className="text-xs font-bold tracking-[0.2em] uppercase text-[#29d9d5] mb-3">
               Other opportunities
             </p>
-            <h2 className="text-4xl md:text-5xl font-black text-[#1a1a1a] leading-tight mb-5">
+            <h2 className="text-4xl md:text-5xl font-black text-[#FFFFF0] leading-tight mb-5">
               Something else<br />in mind?
             </h2>
-            <p className="text-gray-500 text-sm leading-relaxed mb-8 max-w-md">
+            <p className="text-slate-300 text-sm leading-relaxed mb-8 max-w-md">
               We&apos;re open to all kinds of meaningful partnerships — technology integrations,
               investment opportunities, NGO collaborations, corporate catering arrangements,
               media partnerships, and more. If you see potential in working with Sosika, so do we.

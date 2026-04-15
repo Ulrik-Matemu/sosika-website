@@ -12,8 +12,8 @@ export default function AboutFeatures() {
                         width={60}
                         height={60}
                     />
-                    <h3 className="font-black text-3xl md:text-5xl leading-[50px] tracking-wide py-4 md:py-8">Quality Service</h3>
-                    <p className="text-xl">
+                    <h3 className="font-black text-3xl md:text-5xl leading-[50px] tracking-wide py-4 md:py-8 text-[#FFFFF0]">Quality Service</h3>
+                    <p className="text-xl text-slate-300">
                         Our riders know Arusha’s shortcuts from Njiro to Sakina, ensuring your orders arrive fresh and exactly when expected.
                     </p>
                 </div>
@@ -26,8 +26,8 @@ export default function AboutFeatures() {
                         width={60}
                         height={60}
                     />
-                    <h3 className="font-black text-3xl md:text-5xl leading-[50px] tracking-wide py-4 md:py-8">Save Your Time</h3>
-                    <p className="text-xl">
+                    <h3 className="font-black text-3xl md:text-5xl leading-[50px] tracking-wide py-4 md:py-8 text-[#FFFFF0]">Save Your Time</h3>
+                    <p className="text-xl text-slate-300">
                         Skip the Clock Tower traffic and the lunch hour rush. We handle the pickup so you can focus on your day.
                     </p>
                 </div>
@@ -40,8 +40,8 @@ export default function AboutFeatures() {
                         width={60}
                         height={60}
                     />
-                    <h3 className="font-black text-3xl md:text-5xl leading-[50px] tracking-wide py-4 md:py-8">Exclusive Offers</h3>
-                    <p className="text-xl">
+                    <h3 className="font-black text-3xl md:text-5xl leading-[50px] tracking-wide py-4 md:py-8 text-[#FFFFF0]">Exclusive Offers</h3>
+                    <p className="text-xl text-slate-300">
                         Enjoy weekly "Arusha Specials" and loyalty rewards from your favorite local cafes, pharmacies, and vendors.
                     </p>
                 </div>
@@ -54,8 +54,8 @@ export default function AboutFeatures() {
                         width={60}
                         height={60}
                     />
-                    <h3 className="font-black text-3xl md:text-5xl leading-[50px] tracking-wide py-4 md:py-8">Infinite Variety</h3>
-                    <p className="text-xl">
+                    <h3 className="font-black text-3xl md:text-5xl leading-[50px] tracking-wide py-4 md:py-8 text-[#FFFFF0]">Infinite Variety</h3>
+                    <p className="text-xl text-slate-300">
                         From the best Nyama Choma in town to essential groceries and meds—if it’s in Arusha, it’s on Sosika.
                     </p>
                 </div>

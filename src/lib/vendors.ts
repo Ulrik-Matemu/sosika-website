@@ -50,7 +50,7 @@ function mapVendor(id: string, data: FirestoreVendor): Vendor {
   };
 }
 
-export async function getFeaturedVendors(limitCount = 3): Promise<Vendor[]> {
+export async function getFeaturedVendors(limitCount = 6): Promise<Vendor[]> {
   const snapshot = await adminDb
     .collection("vendors")
     .where("is_featured", "==", true)

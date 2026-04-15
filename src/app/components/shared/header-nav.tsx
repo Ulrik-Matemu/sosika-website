@@ -1,23 +1,43 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { ChevronRight, X } from 'lucide-react';
 import { trackEvent } from '@/lib/posthog';
 import posthog from '@/lib/posthog';
 
 const Navbar = () => {
+  const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const websiteDistinctId = posthog.get_distinct_id();
+  const [hidden, setHidden] = useState(false);
+  const lastScrollY = useRef(0);
+
+  const isBlogArticlePage = /^\/blog\/[^/]+\/?$/.test(pathname);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      const currentScrollY = window.scrollY;
+      const scrollingDown = currentScrollY > lastScrollY.current + 4;
+      const scrollingUp = currentScrollY < lastScrollY.current - 4;
+
+      setScrolled(currentScrollY > 20);
+
+      if (!isBlogArticlePage || menuOpen || currentScrollY < 80) {
+        setHidden(false);
+      } else if (scrollingDown) {
+        setHidden(true);
+      } else if (scrollingUp) {
+        setHidden(false);
+      }
+
+      lastScrollY.current = Math.max(currentScrollY, 0);
     };
 
+    handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isBlogArticlePage, menuOpen]);
 
   const navLinks = [
     { name: 'Home', href: '/', hasArrow: false, active: false },
@@ -25,12 +45,15 @@ const Navbar = () => {
     { name: 'Our Services', href: '/our-services', hasArrow: false },
     { name: 'Our Partners', href: '/our-partners', hasArrow: false },
     { name: 'Contacts', href: '/contact-us', hasArrow: false },
+    { name: 'Blog', href: '/blog', hasArrow: false }
   ];
 
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 md:px-24 transition-all duration-300
+        aria-label="Primary navigation"
+        className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 md:px-24 transition-all duration-300 ease-out
+          ${hidden ? '-translate-y-full opacity-0 pointer-events-none' : 'translate-y-0 opacity-100'}
           ${scrolled
             ? 'py-3 bg-white/90 backdrop-blur-md shadow-sm shadow-black/5'
             : 'py-4 bg-transparent'
@@ -39,7 +62,7 @@ const Navbar = () => {
         {/* Logo Section */}
         <div className="flex items-center gap-3">
           <div className="flex flex-col leading-tight">
-            <span className="text-4xl font-black text-[#29d9d5] tracking-tight">Sosika</span>
+            <span className={`text-5xl font-black  tracking-tight ${scrolled ? 'text-[#0f172a]' : 'text-[#29d9d5]'}`}>Sosika</span>
           </div>
         </div>
 
@@ -49,7 +72,7 @@ const Navbar = () => {
             <li key={link.name}>
               <Link
                 href={link.href}
-                className={`flex items-center gap-1 text-[15px] font-bold transition-colors ${link.active ? 'text-[#29d9d5]' : 'text-black hover:text-[#29d9d5]'
+                className={`flex items-center gap-1 text-[15px] font-bold transition-colors ${scrolled ? 'text-black' : 'text-[#FFFFF0]'} ${link.active ? 'text-[#FFFFF0]' : 'text-[#FFFFF0] hover:text-[#29d9d5]'
                   }`}
               >
                 {link.name}

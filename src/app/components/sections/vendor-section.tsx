@@ -18,20 +18,24 @@ function formatRating(rating: number) {
 export default function FeaturedVendorsSection({
   vendors,
 }: FeaturedVendorsSectionProps) {
-  if (!vendors.length) return null;
+  if (!vendors.length) {
+    return null
+  } else {
+    console.log(vendors);
+  };
 
   const websiteDistinctId = posthog.get_distinct_id();
 
   return (
-    <section className="bg-slate-200 py-10 md:py-20 md:px-16">
+    <section className="bg-transparent py-10 md:py-20 md:px-16">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="text-center">
 
-          <h2 className="mt-5 text-5xl font-black tracking-tight text-slate-900">
+          <h2 className="mt-5 text-5xl font-black tracking-tight text-[#FFFFF0]">
             <span className="text-[#29d9d5]">Great Food </span>from Vendors Customers Love!
           </h2>
 
-          <p className="mt-4 text-base text-lg leading-7 text-slate-600">
+          <p className="mt-4 text-base text-lg leading-7 text-slate-300">
             Explore some of the trusted vendors on Sosika. Fast delivery,
             quality meals, and a better experience from order to doorstep.
           </p>
@@ -42,7 +46,7 @@ export default function FeaturedVendorsSection({
             <Link
               key={vendor.id}
               href={`https://sosika.app/vendor/${vendor.id}/menu`}
-              className="group overflow-hidden rounded-3xl border border-[#29d9d5] bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+              className="group overflow-hidden rounded-3xl border border-[#29d9d5] bg-transparent shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
               onClick={() => {
                 trackEvent("vendor_card_clicked", {
                   location: 'vendor-section',
@@ -60,7 +64,7 @@ export default function FeaturedVendorsSection({
                   priority={false}
                 />
 
-                <div className="absolute left-4 top-4 inline-flex items-center rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-slate-900 backdrop-blur">
+                <div className="absolute left-4 top-4 inline-flex items-center rounded-full bg-green-200 px-3 py-1 text-xs font-semibold text-slate-900 backdrop-blur">
                   {vendor.isOpen ? "Open now" : "Currently closed"}
                 </div>
               </div>
@@ -68,7 +72,7 @@ export default function FeaturedVendorsSection({
               <div className="p-5">
                 <div className="flex items-start justify-between gap-3">
                   <div>
-                    <h3 className="text-lg font-semibold text-slate-900">
+                    <h3 className="text-lg font-semibold text-[#FFFFF0]">
                       {vendor.name}
                     </h3>
                   </div>
@@ -78,7 +82,7 @@ export default function FeaturedVendorsSection({
                   </div>
                 </div>
 
-                <div className="flex flex-wrap items-center gap-4 text-sm text-slate-600">
+                <div className="flex flex-wrap items-center gap-4 text-sm text-slate-300">
                   <span className="inline-flex items-center gap-1.5">
                     <Star className="h-4 w-4" />
                     {formatRating(vendor.averageRating)}
