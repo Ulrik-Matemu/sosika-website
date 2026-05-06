@@ -7,6 +7,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import { PostHogProvider } from './provider';
 import PageViewTracker from './components/analytics/pageview-tracker';
 import { cn } from "@/lib/utils";
+import FloatingActions from './components/shared/floating-actions';
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
@@ -54,6 +55,7 @@ export default function RootLayout({
           <PageViewTracker />
           <Navbar />
           {children}
+          <FloatingActions />
           <Footer />
         </PostHogProvider>
       </body>
