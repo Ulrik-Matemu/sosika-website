@@ -1,4 +1,4 @@
-import { Titillium_Web } from 'next/font/google';
+import { Titillium_Web, Geist } from 'next/font/google';
 import './globals.css';
 import Navbar from './components/shared/header-nav';
 import Footer from './components/shared/footer';
@@ -6,6 +6,9 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { PostHogProvider } from './provider';
 import PageViewTracker from './components/analytics/pageview-tracker';
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const titillium = Titillium_Web({
   subsets: ['latin'],
@@ -42,7 +45,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={cn("font-sans", geist.variable)}>
       <body className={`${titillium.variable} font-sans antialiased`}
         style={{
           background: 'linear-gradient(135deg, #0f172a 0%, #062f3a 40%, #033a41 70%, #0b4f54 100%)',
@@ -54,8 +57,8 @@ export default function RootLayout({
           <Footer />
         </PostHogProvider>
       </body>
-      <Analytics />
-      <SpeedInsights />
+      <Analytics debug={false} />
+      <SpeedInsights debug={false} />
     </html>
   );
 }

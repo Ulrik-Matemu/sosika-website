@@ -5,6 +5,7 @@ import { Clock3, Star, Store } from "lucide-react";
 import type { Vendor } from "@/types/vendor";
 import { trackEvent } from "@/lib/posthog";
 import posthog from "@/lib/posthog";
+import { useEffect, useState } from "react";
 
 type FeaturedVendorsSectionProps = {
   vendors: Vendor[];
@@ -18,13 +19,14 @@ function formatRating(rating: number) {
 export default function FeaturedVendorsSection({
   vendors,
 }: FeaturedVendorsSectionProps) {
-  if (!vendors.length) {
-    return null
-  } else {
-    console.log(vendors);
-  };
+  if (!vendors.length) return null
+  const [linkHref, setLinkHref] = useState('https://sosika.app/');
 
   const websiteDistinctId = posthog.get_distinct_id();
+
+  useEffect(() => {
+    setLinkHref(`https://sosika.app/?utm_source=${window.location.hostname}&utm_medium=cta&utm_campaign=vendor_section&utm_content=open_app_button&web_distinct_id=${encodeURIComponent(websiteDistinctId)}`)
+  }, []);
 
   return (
     <section className="bg-transparent py-10 md:py-20 md:px-16">
@@ -45,12 +47,12 @@ export default function FeaturedVendorsSection({
           {vendors.map((vendor) => (
             <Link
               key={vendor.id}
-              href={`https://sosika.app/vendor/${vendor.id}/menu`}
+              href={`/vendors/${vendor.slug}`}
               className="group overflow-hidden rounded-3xl border border-[#29d9d5] bg-transparent shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
               onClick={() => {
                 trackEvent("vendor_card_clicked", {
                   location: 'vendor-section',
-                  destination: `https://sosika.app/vendor/${vendor.id}/menu`,
+                  destination: `https://sosika.co.tz/vendors/${vendor.slug}`,
                 })
               }}
             >
@@ -99,10 +101,16 @@ export default function FeaturedVendorsSection({
           ))}
         </div>
 
-        <div className="mt-10 flex justify-center">
+        <div className="mt-10 md:flex justify-center  md:gap-4">
           <Link
-            href={`https://sosika.app/?utm_source=website&utm_medium=cta&utm_campaign=vendor_section&utm_content=open_app_button` + `&web_distinct_id=${encodeURIComponent(websiteDistinctId)}`}
-            className="inline-flex items-center uppercase rounded-xl px-8 py-3 text-lg font-semibold bg-black hover:bg-white hover:text-[#1a1c20] text-white transition-colors duration-300"
+            href="/vendors"
+            className="inline-flex justify-center items-center mb-3 md:mb-0 w-full uppercase rounded-xl px-8 py-3 text-lg font-semibold bg-black hover:bg-white hover:text-[#1a1c20] text-white transition-colors duration-300"
+          >
+            View all vendors
+          </Link>
+          <Link
+            href={linkHref}
+            className="inline-flex items-center justify-center md:justify-end uppercase w-full rounded-xl px-8 py-3 text-lg font-semibold bg-white hover:text-[#29d9d5] text-[#1a1c20] transition-colors duration-300"
             onClick={() => {
               trackEvent("view_all_vendors_clicked", {
                 location: 'vendor-section',
@@ -114,7 +122,21 @@ export default function FeaturedVendorsSection({
               })
             }}
           >
-            View all vendors
+            <Image
+              src="/icons/icons8-right-arrow.gif"
+              alt="App Store"
+              width={20}
+              height={20}
+              className="hidden md:block mr-2"
+            />
+            View In App
+            <Image
+              src="/icons/icons8-right-arrow.gif"
+              alt="App Store"
+              width={20}
+              height={20}
+              className="block md:hidden ml-2"
+            />
           </Link>
         </div>
       </div>

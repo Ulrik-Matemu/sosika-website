@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { trackEvent } from '@/lib/posthog';
 
@@ -9,7 +9,8 @@ import { trackEvent } from '@/lib/posthog';
 const SERVICES = [
   {
     id: 'food',
-    tag: '01 — Core',
+    index: '01',
+    category: 'Core',
     title: 'Food Delivery',
     tagline: 'Restaurant-quality meals at your door.',
     description:
@@ -22,18 +23,11 @@ const SERVICES = [
     ],
     stat: '500+',
     statLabel: 'Restaurant partners',
-    icon: (
-      <svg viewBox="0 0 48 48" fill="none" className="w-10 h-10" aria-hidden="true">
-        <circle cx="24" cy="24" r="20" fill="#29d9d5" fillOpacity="0.12" />
-        <path d="M16 22c0-4.418 3.582-8 8-8s8 3.582 8 8" stroke="#29d9d5" strokeWidth="2.2" strokeLinecap="round" />
-        <path d="M12 32h24M20 32v2a4 4 0 008 0v-2" stroke="#29d9d5" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-        <rect x="22" y="22" width="4" height="10" rx="1" fill="#29d9d5" fillOpacity="0.4" />
-      </svg>
-    ),
   },
   {
     id: 'grocery',
-    tag: '02 — Essentials',
+    index: '02',
+    category: 'Essentials',
     title: 'Grocery & Supermarket',
     tagline: 'Your weekly shop, handled.',
     description:
@@ -46,18 +40,11 @@ const SERVICES = [
     ],
     stat: '<60 min',
     statLabel: 'Average grocery delivery',
-    icon: (
-      <svg viewBox="0 0 48 48" fill="none" className="w-10 h-10" aria-hidden="true">
-        <circle cx="24" cy="24" r="20" fill="#29d9d5" fillOpacity="0.12" />
-        <path d="M12 16h4l3 14h14l3-10H19" stroke="#29d9d5" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-        <circle cx="22" cy="33" r="2" fill="#29d9d5" />
-        <circle cx="31" cy="33" r="2" fill="#29d9d5" />
-      </svg>
-    ),
   },
   {
     id: 'pharma',
-    tag: '03 — Health',
+    index: '03',
+    category: 'Health',
     title: 'Pharmaceuticals',
     tagline: 'Medication delivered with care.',
     description:
@@ -70,17 +57,11 @@ const SERVICES = [
     ],
     stat: '100%',
     statLabel: 'Licensed pharmacy partners',
-    icon: (
-      <svg viewBox="0 0 48 48" fill="none" className="w-10 h-10" aria-hidden="true">
-        <circle cx="24" cy="24" r="20" fill="#29d9d5" fillOpacity="0.12" />
-        <rect x="18" y="12" width="12" height="24" rx="6" stroke="#29d9d5" strokeWidth="2.2" />
-        <path d="M18 24h12" stroke="#29d9d5" strokeWidth="2.2" strokeLinecap="round" />
-      </svg>
-    ),
   },
   {
     id: 'retail',
-    tag: '04 — Lifestyle',
+    index: '04',
+    category: 'Lifestyle',
     title: 'Retail & General Items',
     tagline: 'Anything you need, anywhere you are.',
     description:
@@ -93,14 +74,14 @@ const SERVICES = [
     ],
     stat: '10+',
     statLabel: 'Product categories & growing',
-    icon: (
-      <svg viewBox="0 0 48 48" fill="none" className="w-10 h-10" aria-hidden="true">
-        <circle cx="24" cy="24" r="20" fill="#29d9d5" fillOpacity="0.12" />
-        <rect x="12" y="18" width="24" height="18" rx="3" stroke="#29d9d5" strokeWidth="2.2" />
-        <path d="M18 18v-2a6 6 0 0112 0v2" stroke="#29d9d5" strokeWidth="2.2" strokeLinecap="round" />
-      </svg>
-    ),
   },
+];
+
+const STATS = [
+  { value: '100+', label: 'Merchant partners' },
+  { value: '30 min', label: 'Avg. delivery time' },
+  { value: '50k+', label: 'Happy customers' },
+  { value: '7 days', label: 'Always on' },
 ];
 
 const DIFFERENTIATORS = [
@@ -126,16 +107,41 @@ const DIFFERENTIATORS = [
   },
 ];
 
-const STATS = [
-  { value: '100+', label: 'Merchant partners' },
-  { value: '30 min', label: 'Avg. delivery time' },
-  { value: '50k+', label: 'Happy customers' },
-  { value: '7 days', label: 'Always on' },
-];
+// ─── Animated Counter ─────────────────────────────────────────────────────────
 
-// ─── Sub-component: Service Card ─────────────────────────────────────────────
+function AnimatedStat({ value, label }: { value: string; label: string }) {
+  const [visible, setVisible] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
 
-function ServiceCard({ service }: { service: typeof SERVICES[0] }) {
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
+      { threshold: 0.4 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={ref} className="flex flex-col gap-1">
+      <span
+        className="font-black text-4xl md:text-5xl tracking-tight transition-all duration-700"
+        style={{
+          color: '#29d9d5',
+          opacity: visible ? 1 : 0,
+          transform: visible ? 'translateY(0)' : 'translateY(12px)',
+        }}
+      >
+        {value}
+      </span>
+      <span className="text-xs uppercase tracking-[0.2em] font-semibold text-white">{label}</span>
+    </div>
+  );
+}
+
+// ─── Service Card ─────────────────────────────────────────────────────────────
+
+function ServiceCard({ service, index }: { service: typeof SERVICES[0]; index: number }) {
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -143,89 +149,93 @@ function ServiceCard({ service }: { service: typeof SERVICES[0] }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        transition: 'all 0.35s ease', // Simplified to 'all' to cover background and shadow
-        backgroundColor: hovered ? '#121212' : '#ffffff',
-        transform: hovered ? 'translateY(-6px)' : 'translateY(0)',
-        boxShadow: hovered
-          ? '0 32px 64px rgba(0,0,0,0.3), 0 2px 8px rgba(0,0,0,0.1)'
-          : '0 2px 16px rgba(0,0,0,0.04)',
-      }}
-      className="relative rounded-3xl border border-gray-100 p-8 md:p-10 overflow-hidden cursor-default flex flex-col"
+        '--delay': `${index * 80}ms`,
+        borderColor: hovered ? 'rgba(41,217,213,0.35)' : 'rgba(255,255,255,0.06)',
+        backgroundColor: hovered ? 'rgba(41,217,213,0.03)' : 'transparent',
+        transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+      } as React.CSSProperties}
+      className="relative border rounded-2xl p-8 md:p-10 flex flex-col overflow-hidden group cursor-default"
     >
-      {/* top accent bar */}
+      {/* Corner accent — top-right */}
       <div
-        className="absolute top-0 left-0 right-0 h-[3px] rounded-t-3xl"
+        className="absolute top-0 right-0 w-px transition-all duration-500"
         style={{
-          background: hovered ? 'linear-gradient(90deg,#29d9d5,#49e5e1)' : 'transparent',
-          transition: 'background 0.3s ease',
+          height: hovered ? '100%' : '40px',
+          background: 'linear-gradient(180deg, #29d9d5 0%, transparent 100%)',
+          opacity: hovered ? 0.6 : 0.25,
+        }}
+      />
+      <div
+        className="absolute top-0 right-0 h-px transition-all duration-500"
+        style={{
+          width: hovered ? '100%' : '40px',
+          background: 'linear-gradient(270deg, #29d9d5 0%, transparent 100%)',
+          opacity: hovered ? 0.6 : 0.25,
         }}
       />
 
-      {/* bg blob */}
-      <div
-        className="absolute -top-10 -right-10 w-40 h-40 rounded-full pointer-events-none"
-        style={{
-          background: 'radial-gradient(circle, rgba(41,217,213,0.15) 0%, transparent 70%)',
-          opacity: hovered ? 1 : 0,
-          transition: 'opacity 0.4s ease',
-        }}
-      />
-
-      {/* tag */}
-      <p className="text-xs font-bold tracking-[0.18em] uppercase text-[#29d9d5] mb-5">
-        {service.tag}
-      </p>
-
-      {/* icon - Added a brightness filter to make icons pop on dark if they are dark-colored */}
-      <div className={`mb-6 transition-all duration-300 ${hovered ? 'brightness-125' : ''}`}>
-        {service.icon}
+      {/* Index + category */}
+      <div className="flex items-center justify-between mb-10">
+        <span
+          className="text-[11px] font-bold tracking-[0.25em] uppercase transition-colors duration-300"
+          style={{ color: hovered ? '#29d9d5' : '#3a3a3a' }}
+        >
+          {service.category}
+        </span>
+        <span
+          className="font-black text-[80px] leading-none select-none transition-all duration-500"
+          style={{
+            color: hovered ? 'rgba(41,217,213,0.12)' : 'rgba(255,255,255,0.04)',
+            transform: hovered ? 'translateX(-4px)' : 'translateX(0)',
+          }}
+        >
+          {service.index}
+        </span>
       </div>
 
-      {/* title & tagline */}
-      <h3
-        className={`text-2xl md:text-3xl font-black leading-tight mb-1 transition-colors duration-300 ${hovered ? 'text-white' : 'text-[#1a1a1a]'
-          }`}
-      >
+      {/* Title */}
+      <h3 className="text-2xl md:text-3xl font-black text-white leading-tight mb-2 tracking-tight">
         {service.title}
       </h3>
-      <p className="text-[#29d9d5] font-semibold text-sm mb-4">{service.tagline}</p>
-
       <p
-        className={`text-sm leading-relaxed mb-7 transition-colors duration-300 ${hovered ? 'text-gray-400' : 'text-gray-500'
-          }`}
+        className="text-sm font-semibold mb-5 transition-colors duration-300"
+        style={{ color: hovered ? '#29d9d5' : '#4a4a4a' }}
       >
+        {service.tagline}
+      </p>
+
+      <p className={`text-sm leading-relaxed text-[#5a5a5a] mb-8 ${hovered ? 'text-white' : ''} transition-colors duration-300`}>
         {service.description}
       </p>
 
-      {/* bullets */}
-      <ul className="space-y-2 mb-8 flex-1">
-        {service.bullets.map((b) => (
+      {/* Bullets */}
+      <ul className="space-y-2.5 mb-10 flex-1">
+        {service.bullets.map((b, i) => (
           <li
             key={b}
-            className={`flex items-start gap-2.5 text-sm transition-colors duration-300 ${hovered ? 'text-gray-300' : 'text-gray-600'
-              }`}
+            className="flex items-start gap-3 text-sm text-[#4a4a4a] transition-all duration-300"
+            style={{ transitionDelay: hovered ? `${i * 40}ms` : '0ms' }}
           >
-            <span className="mt-[3px] w-4 h-4 flex-shrink-0 rounded-full bg-[#29d9d5]/10 flex items-center justify-center">
+            <span
+              className="mt-0.5 flex-shrink-0 w-[18px] h-[18px] rounded-sm flex items-center justify-center transition-colors duration-300"
+              style={{ background: hovered ? 'rgba(41,217,213,0.15)' : 'rgba(255,255,255,0.04)' }}
+            >
               <svg viewBox="0 0 10 10" className="w-2.5 h-2.5" fill="none">
-                <path d="M2 5l2 2 4-4" stroke="#29d9d5" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M2 5.5l2 2 4-4" stroke="#29d9d5" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </span>
-            {b}
+            <span className={hovered ? 'text-[#888]' : ''}>{b}</span>
           </li>
         ))}
       </ul>
 
-      {/* stat */}
-      <div className={`flex items-end gap-2 border-t pt-5 transition-colors duration-300 ${hovered ? 'border-gray-800' : 'border-gray-100'
-        }`}>
-        <span className={`text-3xl font-black transition-colors duration-300 ${hovered ? 'text-white' : 'text-[#1a1a1a]'
-          }`}>
-          {service.stat}
-        </span>
-        <span className={`text-xs leading-snug pb-1 transition-colors duration-300 ${hovered ? 'text-gray-500' : 'text-gray-400'
-          }`}>
-          {service.statLabel}
-        </span>
+      {/* Stat */}
+      <div
+        className="flex items-end gap-3 pt-6 transition-colors duration-300"
+        style={{ borderTop: `1px solid ${hovered ? 'rgba(41,217,213,0.15)' : 'rgba(255,255,255,0.05)'}` }}
+      >
+        <span className="text-4xl font-black text-white tracking-tight leading-none">{service.stat}</span>
+        <span className="text-xs text-[#3a3a3a] pb-1 leading-snug">{service.statLabel}</span>
       </div>
     </div>
   );
@@ -235,190 +245,259 @@ function ServiceCard({ service }: { service: typeof SERVICES[0] }) {
 
 export default function ServicesPage() {
   return (
-    <main className="w-full bg-transparent text-[#1a1a1a] overflow-x-hidden">
+    <main
+      className="w-full overflow-x-hidden"
+      style={{ background: 'linear-gradient(135deg, #0f172a 0%, #062f3a 40%, #033a41 70%, #0b4f54 100%)', color: '#ffffff' }}
+    >
 
-      {/* ── Hero ─────────────────────────────────────────────────────────── */}
-      <section className="relative md:mt- min-h-[80vh] flex items-center justify-center overflow-hidden bg-transparent">
+      {/* ── Hero ──────────────────────────────────────────────────────────── */}
+      <section className="relative min-h-screen flex flex-col justify-center overflow-hidden">
 
-        {/* blob top-left */}
+        {/* Fine grid */}
         <div
           aria-hidden="true"
-          className="absolute -top-24 -left-24 w-[500px] h-[500px] rounded-full pointer-events-none"
-          style={{ background: 'radial-gradient(circle, rgba(41,217,213,0.18) 0%, transparent 70%)' }}
-        />
-        {/* blob bottom-right */}
-        <div
-          aria-hidden="true"
-          className="absolute bottom-0 right-0 w-[380px] h-[380px] rounded-full pointer-events-none"
-          style={{ background: 'radial-gradient(circle, rgba(41,217,213,0.10) 0%, transparent 70%)' }}
-        />
-
-        {/* dot grid */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 pointer-events-none opacity-[0.055]"
+          className="absolute inset-0 pointer-events-none"
           style={{
-            backgroundImage: 'radial-gradient(circle, #fff 1px, transparent 1px)',
-            backgroundSize: '32px 32px',
+            backgroundImage: `
+              linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px)
+            `,
+            backgroundSize: '60px 60px',
           }}
         />
 
-        <div className="relative z-10 md:mt-12 max-w-6xl mx-auto px-6 md:px-24 w-full py-28 text-center">
-         
-          <h1 className="font-black text-[#FFFFF0] text-5xl sm:text-6xl lg:text-[88px] leading-[1.04] mb-6">
-            Everything<br />
-            <span style={{ color: '#29d9d5' }}>Delivered.</span>
+        {/* Radial glow — top center */}
+        <div
+          aria-hidden="true"
+          className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] pointer-events-none"
+          style={{
+            background: 'radial-gradient(ellipse at top, rgba(41,217,213,0.08) 0%, transparent 65%)',
+          }}
+        />
+
+        {/* Horizontal rule — top */}
+        <div className="absolute top-0 left-0 right-0 h-px" style={{ background: 'rgba(255,255,255,0.07)' }} />
+
+        {/* Vertical accent lines */}
+        <div className="absolute top-0 bottom-0 left-[5%] w-px" style={{ background: 'rgba(255,255,255,0.04)' }} />
+        <div className="absolute top-0 bottom-0 right-[5%] w-px" style={{ background: 'rgba(255,255,255,0.04)' }} />
+
+        <div className="relative z-10 max-w-7xl mx-auto w-full px-6 md:px-16 xl:px-24 pt-40 pb-32">
+          {/* Eyebrow */}
+          <div className="flex items-center gap-3 mb-10">
+            <div className="w-6 h-px bg-[#29d9d5]" />
+            <span className="text-[11px] font-bold tracking-[0.3em] uppercase text-[#29d9d5]">
+              Tanzania's On-Demand Platform
+            </span>
+          </div>
+
+          {/* Headline */}
+          <h1
+            className="font-black leading-[0.95] tracking-[-0.03em] mb-8"
+            style={{ fontSize: 'clamp(52px, 9vw, 120px)' }}
+          >
+            <span className="block text-white">Everything</span>
+            <span className="block" style={{ color: '#29d9d5' }}>Delivered.</span>
           </h1>
 
-          <p className="max-w-xl mx-auto text-slate-300 text-lg leading-relaxed mb-10">
-            Sosika is Tanzania&apos;s on-demand delivery platform — bringing food, groceries,
-            medicine, and retail goods to your doorstep, faster than ever before.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link
-              href="https://sosika.app"
-              className="inline-block bg-[#29d9d5] text-[#1a1a1a] font-bold uppercase tracking-wider px-8 py-3.5 rounded-xl text-sm shadow-lg shadow-cyan-500/20 hover:bg-white transition-colors duration-300"
-              onClick={() => {
-                trackEvent('open_app_clicked', {
-                  location: 'services_page_hero',
-                  destination: 'https://sosika.app',
-                  platform: 'website',
-                })
-              }}
-            >
-              Order Now
-            </Link>
-            <Link
-              href="/our-partners"
-              className="inline-block bg-white/5 border border-white/10 text-white font-bold uppercase tracking-wider px-8 py-3.5 rounded-xl text-sm hover:bg-white/10 transition-colors duration-300"
-              onClick={() => {
-                trackEvent('become_partner_clicked', {
-                  location: 'services_page_hero',
-                  destination: '/our-partners',
-                  platform: 'website',
-                })
-              }}
-            >
-              Become a Partner
-            </Link>
+          {/* Sub + CTA row */}
+          <div className="flex flex-col lg:flex-row lg:items-end gap-10 lg:gap-20">
+            <p className="max-w-md text-base leading-relaxed text-white lg:max-w-sm">
+              Food, groceries, medicine, and retail goods — to your doorstep, faster than ever before.
+              One platform. Every need.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Link
+                href="https://sosika.app"
+                className="group relative inline-flex items-center gap-3 bg-[#29d9d5] text-[#0a0a0a] font-bold text-sm uppercase tracking-[0.15em] px-8 py-4 rounded-xl overflow-hidden transition-all duration-300 hover:brightness-110"
+                onClick={() => trackEvent('open_app_clicked', { location: 'services_page_hero' })}
+              >
+                <span>Order Now</span>
+                <svg viewBox="0 0 16 16" className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none">
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </Link>
+              <Link
+                href="/our-partners"
+                className="inline-flex items-center gap-2 border border-[rgba(255,255,255,0.1)] text-white font-bold text-sm uppercase tracking-[0.15em] px-8 py-4 rounded-xl transition-all duration-300 hover:border-[#29d9d5] hover:text-[#29d9d5]"
+                onClick={() => trackEvent('become_partner_clicked', { location: 'services_page_hero' })}
+              >
+                Become a Partner
+              </Link>
+            </div>
           </div>
+        </div>
+
+        {/* Bottom marquee line */}
+        <div
+          className="absolute bottom-0 left-0 right-0 h-px"
+          style={{ background: 'rgba(255,255,255,0.07)' }}
+        />
+        <div className="absolute bottom-10 right-6 md:right-16 xl:right-24">
+          <span className="text-[11px] text-[#2a2a2a] tracking-[0.2em] uppercase font-semibold">
+            Est. 2025 — Arusha, TZ
+          </span>
         </div>
       </section>
 
-      {/* ── Stats bar ────────────────────────────────────────────────────── */}
-      <section className="bg-[#29d9d5]">
-        <div className="max-w-6xl relative z-10 mx-auto px-6 md:px-24 py-10 grid grid-cols-2 md:grid-cols-4 gap-8">
+      {/* ── Stats ─────────────────────────────────────────────────────────── */}
+      <section
+        className="border-y"
+        style={{ borderColor: 'rgba(255,255,255,0.07)' }}
+      >
+        <div className="max-w-7xl mx-auto px-6 md:px-16 xl:px-24 py-14 grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-0 divide-y md:divide-y-0 md:divide-x"
+          style={{ divideColor: 'rgba(255,255,255,0.06)' } as React.CSSProperties}
+        >
           {STATS.map((s) => (
-            <div key={s.label} className="text-center">
-              <p className="text-3xl md:text-4xl font-black text-[#1a1a1a]">{s.value}</p>
-              <p className="text-[#1a1a1a]/55 text-xs font-semibold uppercase tracking-widest mt-1">
-                {s.label}
-              </p>
+            <div key={s.label} className="md:px-10 first:pl-0 last:pr-0">
+              <AnimatedStat value={s.value} label={s.label} />
             </div>
           ))}
         </div>
       </section>
 
-      {/* ── Services grid ────────────────────────────────────────────────── */}
-      <section className="max-w-6xl mx-auto px-6 md:px-24 py-24">
-        <div className="mb-16 max-w-xl">
-          <p className="text-xs font-bold tracking-[0.2em] uppercase text-[#29d9d5] mb-3">
-            What we offer
+      {/* ── Services ──────────────────────────────────────────────────────── */}
+      <section className="max-w-7xl mx-auto px-6 md:px-16 xl:px-24 py-28">
+        {/* Section header */}
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-6 h-px bg-[#29d9d5]" />
+              <span className="text-[11px] font-bold tracking-[0.3em] uppercase text-[#29d9d5]">
+                What we offer
+              </span>
+            </div>
+            <h2
+              className="font-black tracking-tight leading-[0.95] text-white"
+              style={{ fontSize: 'clamp(36px, 5vw, 64px)' }}
+            >
+              One platform.<br />Every need.
+            </h2>
+          </div>
+          <p className="max-w-xs text-sm text-white leading-relaxed md:text-right">
+            Four service verticals, one coherent experience. Built from the ground up for Tanzania.
           </p>
-          <h2 className="text-4xl md:text-5xl font-black text-[#FFFFF0] leading-tight">
-            One platform.<br />Every need.
-          </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {SERVICES.map((s) => (
-            <ServiceCard key={s.id} service={s} />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4" style={{ background: '' }}>
+          {SERVICES.map((s, i) => (
+            <div key={s.id} className="">
+              <ServiceCard service={s} index={i} />
+            </div>
           ))}
         </div>
       </section>
 
-      {/* ── How it works / Differentiators ───────────────────────────────── */}
-      <section className="relative bg-[#1a1a1a] py-24 overflow-hidden">
+      {/* ── Differentiators ───────────────────────────────────────────────── */}
+      <section className="relative py-28 overflow-hidden" style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}>
+
+        {/* Subtle left glow */}
         <div
           aria-hidden="true"
-          className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[400px] rounded-full pointer-events-none"
-          style={{ background: 'radial-gradient(ellipse, rgba(41,217,213,0.07) 0%, transparent 70%)' }}
+          className="absolute left-0 top-1/2 -translate-y-1/2 w-[400px] h-[400px] pointer-events-none"
+          style={{ background: 'radial-gradient(circle, rgba(41,217,213,0.05) 0%, transparent 70%)' }}
         />
 
-        <div className="max-w-6xl mx-auto px-6 md:px-24 relative z-10">
-          <div className="mb-16 text-center">
-            <p className="text-xs font-bold tracking-[0.2em] uppercase text-[#29d9d5] mb-3">
-              The Sosika difference
-            </p>
-            <h2 className="text-4xl md:text-5xl font-black text-white leading-tight">
-              Built for speed.<br />Designed for trust.
-            </h2>
+        <div className="max-w-7xl mx-auto px-6 md:px-16 xl:px-24 relative z-10">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
+            <div>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-6 h-px bg-[#29d9d5]" />
+                <span className="text-[11px] font-bold tracking-[0.3em] uppercase text-[#29d9d5]">
+                  The Sosika difference
+                </span>
+              </div>
+              <h2
+                className="font-black tracking-tight leading-[0.95] text-white"
+                style={{ fontSize: 'clamp(36px, 5vw, 64px)' }}
+              >
+                Built for speed.<br />Designed for trust.
+              </h2>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
-            {DIFFERENTIATORS.map((d) => (
-              <div key={d.number} className="group">
-                <p className="text-5xl font-black text-[#29d9d5]/18 group-hover:text-[#29d9d5]/40 transition-colors duration-300 mb-4 leading-none select-none">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0 border border-[rgba(255,255,255,0.06)]">
+            {DIFFERENTIATORS.map((d, i) => (
+              <div
+                key={d.number}
+                className="group p-8 relative transition-colors duration-300 hover:bg-[rgba(41,217,213,0.02)]"
+                style={{
+                  borderRight: i < 3 ? '1px solid rgba(255,255,255,0.06)' : 'none',
+                }}
+              >
+                {/* Top border hover */}
+                <div
+                  className="absolute top-0 left-0 right-0 h-px transition-all duration-500"
+                  style={{ background: 'linear-gradient(90deg, #29d9d5, transparent)', opacity: 0 }}
+                  onMouseOver={(e) => (e.currentTarget.style.opacity = '1')}
+                  onMouseOut={(e) => (e.currentTarget.style.opacity = '0')}
+                />
+
+                <div className="text-[10px] font-bold tracking-[0.25em] uppercase text-[#2a2a2a] mb-6 group-hover:text-[#29d9d5] transition-colors duration-300">
                   {d.number}
-                </p>
-                <h3 className="text-lg font-black text-white mb-2">{d.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{d.body}</p>
+                </div>
+                <h3 className="text-base font-black text-white mb-3 tracking-tight">{d.title}</h3>
+                <p className="text-sm text-white leading-relaxed">{d.body}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── Partners / Investors strip ────────────────────────────────────── */}
-      <section className="max-w-6xl mx-auto px-6 md:px-24 py-24">
-        <div className="relative rounded-3xl overflow-hidden bg-white border border-gray-100 shadow-sm p-10 md:p-16 flex flex-col md:flex-row items-center gap-12">
+      {/* ── Partner / Investor CTA ────────────────────────────────────────── */}
+      <section className="max-w-7xl mx-auto px-6 md:px-16 xl:px-24 py-20">
+        <div
+          className="relative rounded-2xl overflow-hidden p-12 md:p-16 lg:p-20 flex flex-col lg:flex-row items-start lg:items-end justify-between gap-12"
+          style={{
+            border: '1px solid rgba(41,217,213,0.2)',
+            background: 'linear-gradient(135deg, rgba(41,217,213,0.04) 0%, transparent 60%)',
+          }}
+        >
+          {/* Corner geometry */}
+          <div className="absolute top-0 left-0 w-20 h-20">
+            <div className="absolute top-0 left-0 w-full h-px bg-[#29d9d5] opacity-40" />
+            <div className="absolute top-0 left-0 h-full w-px bg-[#29d9d5] opacity-40" />
+          </div>
+          <div className="absolute bottom-0 right-0 w-20 h-20">
+            <div className="absolute bottom-0 right-0 w-full h-px bg-[#29d9d5] opacity-40" />
+            <div className="absolute bottom-0 right-0 h-full w-px bg-[#29d9d5] opacity-40" />
+          </div>
 
-          {/* blob */}
-          <div
-            aria-hidden="true"
-            className="absolute -top-16 -right-16 w-72 h-72 rounded-full pointer-events-none"
-            style={{ background: 'radial-gradient(circle, rgba(41,217,213,0.11) 0%, transparent 70%)' }}
-          />
-
-          <div className="flex-1 relative z-10">
-            <p className="text-xs font-bold tracking-[0.2em] uppercase text-[#29d9d5] mb-3">
-              For Partners &amp; Investors
-            </p>
-            <h2 className="text-3xl md:text-4xl font-black text-[#1a1a1a] leading-tight mb-5">
-              Grow with Tanzania&apos;s<br />fastest delivery network.
+          <div className="flex-1">
+            <div className="flex items-center gap-3 mb-5">
+              <div className="w-6 h-px bg-[#29d9d5]" />
+              <span className="text-[11px] font-bold tracking-[0.3em] uppercase text-[#29d9d5]">
+                Partners &amp; Investors
+              </span>
+            </div>
+            <h2
+              className="font-black text-white leading-tight tracking-tight mb-5"
+              style={{ fontSize: 'clamp(28px, 4vw, 48px)' }}
+            >
+              Grow with Tanzania's<br />fastest delivery network.
             </h2>
-            <p className="text-gray-500 text-sm leading-relaxed max-w-md">
-              Whether you&apos;re a restaurant owner, pharmacy, retail brand, or investor —
+            <p className="text-sm text-white leading-relaxed max-w-md">
+              Whether you're a restaurant owner, pharmacy, retail brand, or investor —
               Sosika offers a proven platform, dedicated support, and a rapidly growing
               customer base ready to be served.
             </p>
           </div>
 
-          <div className="relative z-10 flex flex-col gap-3 w-full md:w-auto min-w-[200px]">
+          <div className="flex flex-col gap-3 w-full lg:w-auto min-w-[200px]">
             <Link
               href="/our-partners"
-              className="block text-center bg-[#1a1a1a] text-white font-bold uppercase tracking-wider px-8 py-3.5 rounded-xl text-sm hover:bg-[#29d9d5] hover:text-[#1a1a1a] transition-colors duration-300"
-              onClick={() => {
-                trackEvent('become_partner_clicked', {
-                  location: 'services_page_near_end',
-                  destination: '/our-partners',
-                  platform: 'website',
-                })
-              }}
+              className="group relative inline-flex items-center justify-center gap-3 border border-[#29d9d5] text-[#29d9d5] font-bold text-sm uppercase tracking-[0.15em] px-8 py-4 rounded-xl transition-all duration-300 hover:bg-[#29d9d5] hover:text-[#0a0a0a]"
+              onClick={() => trackEvent('become_partner_clicked', { location: 'services_page_near_end' })}
             >
               Partner with us
+              <svg viewBox="0 0 16 16" className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
             </Link>
             <Link
               href="/our-partners"
-              className="block text-center border border-gray-200 text-[#1a1a1a] font-bold uppercase tracking-wider px-8 py-3.5 rounded-xl text-sm hover:border-[#29d9d5] hover:text-[#29d9d5] transition-colors duration-300"
-              onClick={() => {
-                trackEvent('become_investor_clicked', {
-                  location: 'services_page_near_end',
-                  destination: '/our-partners',
-                  platform: 'website',
-                })
-              }}
+              className="inline-flex items-center justify-center border border-white text-white font-bold text-sm uppercase tracking-[0.15em] px-8 py-4 rounded-xl transition-all duration-300 hover:border-[rgba(255,255,255,0.2)] hover:text-white"
+              onClick={() => trackEvent('become_investor_clicked', { location: 'services_page_near_end' })}
             >
               Investor relations
             </Link>
@@ -426,27 +505,62 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* ── CTA ──────────────────────────────────────────────────────────── */}
-      <section className="bg-[#29d9d5] py-24">
-        <div className="max-w-4xl mx-auto px-6 md:px-24 text-center">
-          <h2 className="text-4xl md:text-6xl font-black text-[#1a1a1a] leading-tight mb-4">
+      {/* ── Final CTA ─────────────────────────────────────────────────────── */}
+      <section
+        className="relative py-32 overflow-hidden"
+        style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}
+      >
+        {/* Large background text */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 flex items-center justify-center select-none pointer-events-none overflow-hidden"
+        >
+          <span
+            className="font-black text-white leading-none whitespace-nowrap"
+            style={{ fontSize: 'clamp(100px, 20vw, 260px)', opacity: 0.025 }}
+          >
+            Sosika
+          </span>
+        </div>
+
+        {/* Center glow */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 flex items-center justify-center pointer-events-none"
+        >
+          <div
+            className="w-[600px] h-[400px] rounded-full"
+            style={{ background: 'radial-gradient(ellipse, rgba(41,217,213,0.06) 0%, transparent 70%)' }}
+          />
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-16 xl:px-24 text-center">
+          <div className="inline-flex items-center gap-3 mb-8">
+            <div className="w-6 h-px bg-[#29d9d5]" />
+            <span className="text-[11px] font-bold tracking-[0.3em] uppercase text-[#29d9d5]">
+              Ready to start
+            </span>
+            <div className="w-6 h-px bg-[#29d9d5]" />
+          </div>
+
+          <h2
+            className="font-black tracking-tight text-white leading-[0.95] mb-6"
+            style={{ fontSize: 'clamp(48px, 8vw, 100px)' }}
+          >
             Ready to order?
           </h2>
-          <p className="text-[#1a1a1a]/60 text-lg mb-10">
-            Download the Sosika app or order via web — it&apos;s that simple.
+          <p className="text-white text-base mb-12 max-w-sm mx-auto leading-relaxed">
+            Order via web or download the app — it takes seconds.
           </p>
           <Link
             href="https://sosika.app"
-            className="inline-block bg-[#1a1a1a] text-white font-bold uppercase tracking-wider px-10 py-4 rounded-xl text-sm shadow-xl hover:bg-white hover:text-[#1a1a1a] transition-colors duration-300"
-            onClick={() => {
-              trackEvent('open_app_clicked', {
-                location: 'services_page_end',
-                destination: 'https://sosika.app',
-                platform: 'website',
-              })
-            }}
+            className="group inline-flex items-center gap-3 bg-white text-[#0a0a0a] font-black text-sm uppercase tracking-[0.2em] px-10 py-5 rounded-xl transition-all duration-300 hover:bg-[#29d9d5]"
+            onClick={() => trackEvent('open_app_clicked', { location: 'services_page_end' })}
           >
             Start ordering
+            <svg viewBox="0 0 16 16" className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
           </Link>
         </div>
       </section>

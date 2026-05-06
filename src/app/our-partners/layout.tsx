@@ -1,5 +1,4 @@
 import { Metadata } from 'next'
-import Image from 'next/image'
 
 export const metadata: Metadata = {
     title: "Our Partners | Sosika Delivery Co.",
@@ -16,14 +15,7 @@ export const metadata: Metadata = {
 export default  function OurPartners({ children}: { children: React.ReactNode }) {
     return (
         <main>
-             <Image
-                        src="/asset-images/burger.png"
-                        alt=""
-                        width={500}
-                        height={500}
-                        className="pointer-events-none select-none absolute top-20 md:top-[-150px] left-0 [transform:rotateY(180deg)] opacity-30 md:opacity-100"
-                        priority
-                      />
+            
             {children}
         </main>
     )

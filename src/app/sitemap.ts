@@ -1,8 +1,10 @@
 import { MetadataRoute } from 'next'
-import articles from '@/data/articles.json' // Adjust path based on your folder structure
+import articles from '@/data/articles.json' 
+import { getAllVendorSlugs } from '@/lib/vendors'
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://sosika.co.tz'
+  const vendors = await getAllVendorSlugs();
 
   // Map through your JSON file to create sitemap entries
   const blogEntries = articles.map((article: any) => ({
@@ -10,6 +12,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // If your JSON has an 'updatedAt' or 'date' field, use it. 
     // Otherwise, use the current date.
     lastModified: article.updatedAt ? new Date(article.updatedAt) : new Date(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.7,
+  }))
+
+  const vendorEntries = vendors.map((slug: string) => ({
+    url: `${baseUrl}/vendors/${slug}`,
+    lastModified: new Date(), // You can replace this with actual last modified date if available
     changeFrequency: 'weekly' as const,
     priority: 0.7,
   }))
@@ -57,7 +66,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
         changeFrequency: 'weekly',
         priority: 0.8
     },
-    // Spread your dynamic blog entries here
+    // Spread your dynamic entries here
     ...blogEntries,
+    ...vendorEntries
   ]
 }
