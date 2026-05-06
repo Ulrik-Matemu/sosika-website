@@ -113,9 +113,9 @@ const Navbar = () => {
             <X size={24} strokeWidth={2.5} />
           ) : (
             <>
-              <span className="block w-6 h-[2.5px] bg-black rounded-full" />
-              <span className="block w-6 h-[2.5px] bg-black rounded-full" />
-              <span className="block w-6 h-[2.5px] bg-black rounded-full" />
+              <span className={`block w-6 h-[2.5px] rounded-full ${scrolled ? 'bg-[#0f172a]' : 'bg-[#29d9d5]'}`} />
+              <span className={`block w-6 h-[2.5px] rounded-full ${scrolled ? 'bg-[#0f172a]' : 'bg-[#29d9d5]'}`} />
+              <span className={`block w-6 h-[2.5px] rounded-full ${scrolled ? 'bg-[#0f172a]' : 'bg-[#29d9d5]'}`} />
             </>
           )}
         </button>
